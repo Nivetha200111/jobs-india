@@ -1,0 +1,13 @@
+[project]
+name = "jobs-india"
+version = "0.1.0"
+description = "Indian Job Market Visualizer — occupation treemap with AI exposure scoring"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.12.0",
+    "httpx>=0.28.0",
+    "playwright>=1.40.0",
+    "python-dotenv>=1.0.0",
+    "camelot-py[cv]>=0.11.0",
+    "tabula-py>=2.9.0",
+]

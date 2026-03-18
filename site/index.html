@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indian Job Market Explorer</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #fafafa;
+  --header-bg: #ffffff;
+  --text-primary: #1a1a2e;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --border: #e0e0e0;
+  --accent: #2d6a4f;
+  --accent-hover: #1b4332;
+  --btn-bg: #f0f0f0;
+  --btn-active: #2d6a4f;
+  --btn-active-text: #fff;
+  --group-stroke: rgba(255,255,255,0.85);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ── Header ── */
+.header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px 10px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text-primary);
+}
+
+.header .subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ── Controls bar ── */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.controls-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-right: 4px;
+}
+
+.layer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--btn-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.layer-btn:hover {
+  border-color: var(--accent);
+  background: #e8f5e9;
+}
+
+.layer-btn.active {
+  background: var(--btn-active);
+  color: var(--btn-active-text);
+  border-color: var(--btn-active);
+  box-shadow: 0 2px 6px rgba(45,106,79,0.3);
+}
+
+.layer-btn .icon {
+  font-size: 15px;
+}
+
+/* ── Treemap container ── */
+.treemap-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+#treemap {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Treemap tiles ── */
+.tile {
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  position: absolute;
+}
+
+.tile:hover {
+  opacity: 0.88;
+}
+
+.tile-inner {
+  width: 100%;
+  height: 100%;
+  padding: 5px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 1px;
+}
+
+.tile-title {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: rgba(0,0,0,0.82);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  text-shadow: 0 0 3px rgba(255,255,255,0.5);
+}
+
+.tile-value {
+  font-size: 10px;
+  font-weight: 500;
+  margin-top: 2px;
+  color: rgba(0,0,0,0.6);
+  text-shadow: 0 0 3px rgba(255,255,255,0.5);
+}
+
+/* Group labels */
+.group-label {
+  position: absolute;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(0,0,0,0.45);
+  pointer-events: none;
+  z-index: 5;
+  padding: 3px 6px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Tooltip ── */
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 14px 16px;
+  max-width: 340px;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tooltip.visible {
+  opacity: 1;
+}
+
+.tooltip-header {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.tooltip-code {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.tooltip-row:last-child {
+  border-bottom: none;
+}
+
+.tooltip-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.tooltip-val {
+  font-weight: 600;
+  font-size: 12px;
+  text-align: right;
+  color: var(--text-primary);
+}
+
+.tooltip-desc {
+  margin-top: 8px;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  border-top: 1px solid #eee;
+  padding-top: 6px;
+}
+
+.tooltip-rationale {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Legend ── */
+.legend-container {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.93);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow-md);
+  z-index: 8;
+  max-width: 260px;
+  backdrop-filter: blur(6px);
+}
+
+.legend-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.legend-bar {
+  width: 100%;
+  height: 14px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.legend-discrete {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 6px;
+}
+
+.legend-discrete-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.legend-source {
+  font-size: 9.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  border-top: 1px solid #eee;
+  padding-top: 5px;
+  margin-top: 2px;
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--header-bg);
+  border-top: 1px solid var(--border);
+  padding: 8px 24px;
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ── Loading ── */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0e0e0;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Error ── */
+.error-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #c62828;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.error-msg h3 {
+  margin-bottom: 8px;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Header -->
+  <div class="header">
+    <h1>Indian Job Market Explorer</h1>
+    <div class="subtitle">Interactive occupation treemap based on official Indian labour-market data</div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <span class="controls-label">Color by:</span>
+    <button class="layer-btn active" data-layer="pay">
+      <span class="icon">&#8377;</span> Pay (INR)
+    </button>
+    <button class="layer-btn" data-layer="skill">
+      <span class="icon">&#9733;</span> Skill Level
+    </button>
+    <button class="layer-btn" data-layer="demand">
+      <span class="icon">&#9650;</span> Demand Proxy
+    </button>
+    <button class="layer-btn" data-layer="ai">
+      <span class="icon">&#9889;</span> AI Exposure
+    </button>
+  </div>
+
+  <!-- Treemap -->
+  <div class="treemap-wrap">
+    <div id="treemap"></div>
+    <div class="loading" id="loading">
+      <div class="loading-spinner"></div>
+      <div>Loading occupation data...</div>
+    </div>
+    <div class="legend-container" id="legend"></div>
+    <div class="tooltip" id="tooltip"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Sources: PLFS 2023-24, NCS Portal, NCO-2015 classification &bull; Inspired by <a href="https://karpathy.ai/jobs" target="_blank" rel="noopener">karpathy.ai/jobs</a></span>
+    <span><a href="#methodology" onclick="alert('Methodology: Employment counts from PLFS 2023-24 survey estimates. Pay medians from PLFS earnings module. Demand index derived from NCS portal vacancy counts (proxy). AI exposure scored via LLM assessment on a 0-10 scale. All figures are estimates and should be used for exploratory purposes only.'); return false;">Methodology</a></span>
+  </div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  // ─── Indian number formatting ───
+  function formatIndianNumber(n) {
+    if (n == null || isNaN(n)) return "N/A";
+    n = Math.round(n);
+    var s = n.toString();
+    var afterPoint = "";
+    if (s.indexOf(".") > 0) {
+      afterPoint = s.substring(s.indexOf("."), s.length);
+      s = s.substring(0, s.indexOf("."));
+    }
+    var lastThree = s.substring(s.length - 3);
+    var otherNumbers = s.substring(0, s.length - 3);
+    if (otherNumbers !== "") lastThree = "," + lastThree;
+    var formatted = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + afterPoint;
+    return formatted;
+  }
+
+  function formatLakhCrore(n) {
+    if (n == null || isNaN(n)) return "N/A";
+    if (n >= 10000000) {
+      return (n / 10000000).toFixed(1).replace(/\.0$/, "") + " Cr";
+    } else if (n >= 100000) {
+      return (n / 100000).toFixed(1).replace(/\.0$/, "") + " L";
+    } else {
+      return formatIndianNumber(n);
+    }
+  }
+
+  function formatCurrency(n) {
+    if (n == null || isNaN(n)) return "N/A";
+    return "\u20B9" + formatIndianNumber(n);
+  }
+
+  function skillLabel(level) {
+    var labels = {1: "Elementary", 2: "Semi-skilled", 3: "Skilled", 4: "Highly skilled"};
+    return labels[level] || "N/A";
+  }
+
+  function truncate(s, len) {
+    if (!s) return "";
+    return s.length > len ? s.slice(0, len - 1) + "\u2026" : s;
+  }
+
+  // ─── Color scales ───
+  var colorScales = {
+    pay: function(d) {
+      if (d.data.pay_median_monthly == null) return "#ccc";
+      var t = Math.max(0, Math.min(1, (d.data.pay_median_monthly - 5000) / (80000 - 5000)));
+      return d3.interpolateRdYlGn(t);
+    },
+    skill: function(d) {
+      var colors = {1: "#bbdefb", 2: "#64b5f6", 3: "#7e57c2", 4: "#4a148c"};
+      return colors[d.data.skill_level] || "#ccc";
+    },
+    demand: function(d) {
+      if (d.data.demand_index == null) return "#ccc";
+      var t = Math.max(0, Math.min(1, d.data.demand_index / 1000));
+      return d3.interpolateOrRd(t);
+    },
+    ai: function(d) {
+      if (d.data.ai_exposure == null) return "#ccc";
+      var t = Math.max(0, Math.min(1, d.data.ai_exposure / 10));
+      // Reversed: 0=green (1.0) → 10=red (0.0)
+      return d3.interpolateRdYlGn(1 - t);
+    }
+  };
+
+  // ─── State ───
+  var currentLayer = "pay";
+  var data = null;
+  var root = null;
+
+  // ─── DOM refs ───
+  var treemapEl = document.getElementById("treemap");
+  var tooltipEl = document.getElementById("tooltip");
+  var legendEl = document.getElementById("legend");
+  var loadingEl = document.getElementById("loading");
+
+  // ─── Load data ───
+  d3.json("data-india.json").then(function(raw) {
+    loadingEl.style.display = "none";
+    data = raw;
+    buildTreemap();
+    renderLegend();
+  }).catch(function(err) {
+    loadingEl.innerHTML = '<div class="error-msg"><h3>Failed to load data</h3><p>Could not load data-india.json. Make sure the file is in the same directory.</p><p style="font-size:11px;color:#888;margin-top:8px;">' + err + '</p></div>';
+  });
+
+  // ─── Build hierarchy ───
+  function buildHierarchy(data) {
+    var groups = {};
+    data.forEach(function(d) {
+      var g = d.occupation_group || "Other";
+      if (!groups[g]) groups[g] = [];
+      groups[g].push(d);
+    });
+
+    var children = Object.keys(groups).map(function(g) {
+      return {
+        name: g,
+        children: groups[g].map(function(occ) {
+          return Object.assign({name: occ.occupation_title}, occ);
+        })
+      };
+    });
+
+    return {name: "root", children: children};
+  }
+
+  // ─── Render treemap ───
+  function buildTreemap() {
+    var rect = treemapEl.getBoundingClientRect();
+    var width = rect.width;
+    var height = rect.height;
+    if (width < 10 || height < 10) return;
+
+    var hierarchy = buildHierarchy(data);
+
+    root = d3.hierarchy(hierarchy)
+      .sum(function(d) { return d.employment_count || 0; })
+      .sort(function(a, b) { return b.value - a.value; });
+
+    d3.treemap()
+      .size([width, height])
+      .paddingTop(20)
+      .paddingRight(2)
+      .paddingBottom(2)
+      .paddingLeft(2)
+      .paddingInner(1)
+      .tile(d3.treemapSquarify.ratio(1.2))
+      (root);
+
+    render(width, height);
+  }
+
+  function render(width, height) {
+    treemapEl.innerHTML = "";
+
+    var container = document.createElement("div");
+    container.style.position = "relative";
+    container.style.width = width + "px";
+    container.style.height = height + "px";
+
+    // Group labels
+    var groups = root.children || [];
+    groups.forEach(function(g) {
+      var gw = g.x1 - g.x0;
+      if (gw < 50) return;
+      var label = document.createElement("div");
+      label.className = "group-label";
+      label.style.left = g.x0 + 4 + "px";
+      label.style.top = g.y0 + 2 + "px";
+      label.style.maxWidth = (gw - 8) + "px";
+      label.textContent = g.data.name;
+      container.appendChild(label);
+    });
+
+    // Leaves
+    var leaves = root.leaves();
+    leaves.forEach(function(leaf) {
+      var lw = leaf.x1 - leaf.x0;
+      var lh = leaf.y1 - leaf.y0;
+      if (lw < 2 || lh < 2) return;
+
+      var tile = document.createElement("div");
+      tile.className = "tile";
+      tile.style.left = leaf.x0 + "px";
+      tile.style.top = leaf.y0 + "px";
+      tile.style.width = lw + "px";
+      tile.style.height = lh + "px";
+
+      var color = colorScales[currentLayer](leaf);
+      var inner = document.createElement("div");
+      inner.className = "tile-inner";
+      inner.style.background = color;
+
+      // Determine text color based on background luminance
+      var textColor = getTextColor(color);
+
+      if (lw > 40 && lh > 22) {
+        var titleEl = document.createElement("div");
+        titleEl.className = "tile-title";
+        titleEl.style.color = textColor;
+        var maxChars = Math.floor((lw * lh) / 120);
+        titleEl.textContent = truncate(leaf.data.occupation_title, Math.max(12, maxChars));
+
+        // Adjust clamp based on available height
+        var lines = Math.max(1, Math.floor((lh - 16) / 14));
+        titleEl.style.webkitLineClamp = lines;
+        inner.appendChild(titleEl);
+
+        if (lh > 38 && lw > 50) {
+          var valEl = document.createElement("div");
+          valEl.className = "tile-value";
+          valEl.style.color = textColor;
+          valEl.style.opacity = "0.7";
+          valEl.textContent = formatLakhCrore(leaf.data.employment_count);
+          inner.appendChild(valEl);
+        }
+      }
+
+      tile.appendChild(inner);
+      tile.addEventListener("mouseenter", function(e) { showTooltip(e, leaf); });
+      tile.addEventListener("mousemove", function(e) { moveTooltip(e); });
+      tile.addEventListener("mouseleave", hideTooltip);
+      container.appendChild(tile);
+    });
+
+    treemapEl.appendChild(container);
+  }
+
+  function getTextColor(bgColor) {
+    // Parse color and compute luminance
+    try {
+      var c = d3.color(bgColor);
+      if (!c) return "rgba(0,0,0,0.82)";
+      var r = c.r / 255, g = c.g / 255, b = c.b / 255;
+      var luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+      return luminance > 0.55 ? "rgba(0,0,0,0.82)" : "rgba(255,255,255,0.92)";
+    } catch(e) {
+      return "rgba(0,0,0,0.82)";
+    }
+  }
+
+  // ─── Tooltip ───
+  function showTooltip(e, leaf) {
+    var d = leaf.data;
+    var html = '<div class="tooltip-header">' + (d.occupation_title || "Unknown") + '</div>';
+    html += '<div class="tooltip-code">NCO ' + (d.occupation_code || "N/A") + ' &bull; ' + (d.occupation_group || "") + '</div>';
+
+    html += '<div class="tooltip-row"><span class="tooltip-label">Employment</span><span class="tooltip-val">' + formatIndianNumber(d.employment_count) + ' (' + formatLakhCrore(d.employment_count) + ')</span></div>';
+    html += '<div class="tooltip-row"><span class="tooltip-label">Monthly Pay (median)</span><span class="tooltip-val">' + formatCurrency(d.pay_median_monthly) + '</span></div>';
+    html += '<div class="tooltip-row"><span class="tooltip-label">Skill Level</span><span class="tooltip-val">' + (d.skill_level != null ? d.skill_level + ' \u2013 ' + skillLabel(d.skill_level) : 'N/A') + '</span></div>';
+    html += '<div class="tooltip-row"><span class="tooltip-label">Demand Index</span><span class="tooltip-val">' + (d.demand_index != null ? d.demand_index + '/1000' : 'N/A') + ' <span style="font-weight:400;color:#999;font-size:10px;">(portal-derived proxy)</span></span></div>';
+    html += '<div class="tooltip-row"><span class="tooltip-label">AI Exposure</span><span class="tooltip-val">' + (d.ai_exposure != null ? d.ai_exposure + '/10' : 'N/A') + '</span></div>';
+
+    if (d.ai_rationale) {
+      html += '<div class="tooltip-rationale">' + truncate(d.ai_rationale, 150) + '</div>';
+    }
+
+    if (d.description) {
+      html += '<div class="tooltip-desc">' + truncate(d.description, 180) + '</div>';
+    }
+
+    tooltipEl.innerHTML = html;
+    tooltipEl.classList.add("visible");
+    moveTooltip(e);
+  }
+
+  function moveTooltip(e) {
+    var tt = tooltipEl;
+    var tw = tt.offsetWidth;
+    var th = tt.offsetHeight;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var mx = e.clientX;
+    var my = e.clientY;
+
+    var x = mx + 16;
+    var y = my + 16;
+
+    if (x + tw > vw - 8) x = mx - tw - 16;
+    if (y + th > vh - 8) y = my - th - 16;
+    if (x < 8) x = 8;
+    if (y < 8) y = 8;
+
+    tt.style.left = x + "px";
+    tt.style.top = y + "px";
+  }
+
+  function hideTooltip() {
+    tooltipEl.classList.remove("visible");
+  }
+
+  // ─── Legend ───
+  function renderLegend() {
+    var html = "";
+
+    if (currentLayer === "pay") {
+      html += '<div class="legend-title">Pay (Monthly Median)</div>';
+      html += '<canvas id="legend-bar" width="220" height="14" class="legend-bar"></canvas>';
+      html += '<div class="legend-labels"><span>\u20B95,000</span><span>\u20B925,000</span><span>\u20B980,000</span></div>';
+    } else if (currentLayer === "skill") {
+      html += '<div class="legend-title">Skill Level (NCO)</div>';
+      html += '<div class="legend-discrete">';
+      html += '<div class="legend-discrete-item"><div class="legend-swatch" style="background:#bbdefb;"></div>1 \u2013 Elementary</div>';
+      html += '<div class="legend-discrete-item"><div class="legend-swatch" style="background:#64b5f6;"></div>2 \u2013 Semi-skilled</div>';
+      html += '<div class="legend-discrete-item"><div class="legend-swatch" style="background:#7e57c2;"></div>3 \u2013 Skilled</div>';
+      html += '<div class="legend-discrete-item"><div class="legend-swatch" style="background:#4a148c;"></div>4 \u2013 Highly skilled</div>';
+      html += '</div>';
+    } else if (currentLayer === "demand") {
+      html += '<div class="legend-title">Demand Index (NCS Proxy)</div>';
+      html += '<canvas id="legend-bar" width="220" height="14" class="legend-bar"></canvas>';
+      html += '<div class="legend-labels"><span>Low (0)</span><span>High (1000)</span></div>';
+    } else if (currentLayer === "ai") {
+      html += '<div class="legend-title">AI Exposure Score</div>';
+      html += '<canvas id="legend-bar" width="220" height="14" class="legend-bar"></canvas>';
+      html += '<div class="legend-labels"><span>0 (Safe)</span><span>5</span><span>10 (High)</span></div>';
+    }
+
+    html += '<div class="legend-source">';
+    html += 'Employment: PLFS 2023-24<br>';
+    html += 'Pay: PLFS survey-based<br>';
+    html += 'Demand: NCS portal-derived proxy<br>';
+    html += 'AI Exposure: LLM-scored estimate';
+    html += '</div>';
+
+    legendEl.innerHTML = html;
+
+    // Draw gradient bar
+    var canvas = document.getElementById("legend-bar");
+    if (canvas) {
+      var ctx = canvas.getContext("2d");
+      var w = canvas.width;
+      for (var i = 0; i < w; i++) {
+        var t = i / (w - 1);
+        var color;
+        if (currentLayer === "pay") {
+          color = d3.interpolateRdYlGn(t);
+        } else if (currentLayer === "demand") {
+          color = d3.interpolateOrRd(t);
+        } else if (currentLayer === "ai") {
+          color = d3.interpolateRdYlGn(1 - t);
+        }
+        ctx.fillStyle = color;
+        ctx.fillRect(i, 0, 1, 14);
+      }
+    }
+  }
+
+  // ─── Layer buttons ───
+  document.querySelectorAll(".layer-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      document.querySelectorAll(".layer-btn").forEach(function(b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      currentLayer = btn.getAttribute("data-layer");
+      if (root) {
+        var rect = treemapEl.getBoundingClientRect();
+        render(rect.width, rect.height);
+      }
+      renderLegend();
+    });
+  });
+
+  // ─── Resize ───
+  var resizeTimer;
+  window.addEventListener("resize", function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      if (data) buildTreemap();
+    }, 150);
+  });
+
+})();
+</script>
+</body>
+</html>

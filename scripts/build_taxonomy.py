@@ -1,0 +1,624 @@
+#!/usr/bin/env python3
+"""
+build_taxonomy.py
+=================
+Builds the NCO 2015 (National Classification of Occupations) taxonomy at the
+2-digit subdivision level and writes it to data/raw/nco_2015.json.
+
+The 2-digit level is the working aggregation level used throughout the
+Indian Job Market Visualizer.  Data is embedded so the visualisation works
+immediately; the script can later be extended to parse the official NCO 2015
+PDF published by the Ministry of Labour & Employment.
+
+Usage:
+    python scripts/build_taxonomy.py          # writes data/raw/nco_2015.json
+    python scripts/build_taxonomy.py --force  # overwrite even if file exists
+
+No external dependencies -- uses only the Python standard library.
+"""
+
+import json
+import os
+import sys
+from pathlib import Path
+
+# ---------------------------------------------------------------------------
+# Project root is one level above the scripts/ directory
+# ---------------------------------------------------------------------------
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+OUTPUT_PATH = PROJECT_ROOT / "data" / "raw" / "nco_2015.json"
+
+# ---------------------------------------------------------------------------
+# Embedded NCO 2015 two-digit subdivision data
+# Based on ISCO-08 which NCO 2015 closely follows.
+# ---------------------------------------------------------------------------
+NCO_2DIGIT: list[dict] = [
+    # ── Major Group 0: Armed Forces Occupations ──────────────────────────
+    {
+        "code": "01",
+        "title": "Commissioned Armed Forces Officers",
+        "parent_code": "0",
+        "parent_title": "Armed Forces Occupations",
+        "skill_level": 4,
+        "description": (
+            "Plan, direct and coordinate military operations in the army, "
+            "navy, air force or other armed services branches. They hold "
+            "ranks from lieutenant / sub-lieutenant upward."
+        ),
+    },
+    {
+        "code": "02",
+        "title": "Non-commissioned Armed Forces Officers",
+        "parent_code": "0",
+        "parent_title": "Armed Forces Occupations",
+        "skill_level": 2,
+        "description": (
+            "Supervise and lead small units of enlisted military personnel. "
+            "Responsibilities include enforcing discipline, training troops "
+            "and ensuring operational readiness."
+        ),
+    },
+    {
+        "code": "03",
+        "title": "Armed Forces Occupations, Other Ranks",
+        "parent_code": "0",
+        "parent_title": "Armed Forces Occupations",
+        "skill_level": 1,
+        "description": (
+            "Perform military duties at the enlisted level including "
+            "guard duties, weapons handling, vehicle operation and "
+            "participation in military exercises and combat operations."
+        ),
+    },
+    # ── Major Group 1: Managers ──────────────────────────────────────────
+    {
+        "code": "11",
+        "title": "Chief Executives, Senior Officials and Legislators",
+        "parent_code": "1",
+        "parent_title": "Managers",
+        "skill_level": 4,
+        "description": (
+            "Determine and formulate policies, direct and plan the "
+            "activities of enterprises, governments and other organisations, "
+            "or manage them on their own behalf or on behalf of shareholders."
+        ),
+    },
+    {
+        "code": "12",
+        "title": "Administrative and Commercial Managers",
+        "parent_code": "1",
+        "parent_title": "Managers",
+        "skill_level": 4,
+        "description": (
+            "Plan, organise, direct, control and coordinate the financial, "
+            "administrative, human resource, policy, planning, research, "
+            "marketing and advertising activities of enterprises."
+        ),
+    },
+    {
+        "code": "13",
+        "title": "Production and Specialized Services Managers",
+        "parent_code": "1",
+        "parent_title": "Managers",
+        "skill_level": 4,
+        "description": (
+            "Plan, direct and coordinate production activities in "
+            "agriculture, forestry, manufacturing, mining, construction, "
+            "transport, health, education, ICT and other specialised services."
+        ),
+    },
+    {
+        "code": "14",
+        "title": "Hospitality, Retail and Other Services Managers",
+        "parent_code": "1",
+        "parent_title": "Managers",
+        "skill_level": 4,
+        "description": (
+            "Plan, organise, direct, control and coordinate the activities "
+            "of commercial enterprises providing hospitality, retail, sport, "
+            "recreation and other consumer services."
+        ),
+    },
+    # ── Major Group 2: Professionals ─────────────────────────────────────
+    {
+        "code": "21",
+        "title": "Science and Engineering Professionals",
+        "parent_code": "2",
+        "parent_title": "Professionals",
+        "skill_level": 4,
+        "description": (
+            "Conduct research, improve or develop concepts and theories, "
+            "and apply scientific and engineering knowledge in fields such as "
+            "physics, chemistry, mathematics, statistics and engineering."
+        ),
+    },
+    {
+        "code": "22",
+        "title": "Health Professionals",
+        "parent_code": "2",
+        "parent_title": "Professionals",
+        "skill_level": 4,
+        "description": (
+            "Conduct research, diagnose and treat human illnesses and "
+            "disorders, and provide related services. Includes medical "
+            "doctors, dentists, pharmacists, nursing and midwifery "
+            "professionals, and traditional medicine practitioners."
+        ),
+    },
+    {
+        "code": "23",
+        "title": "Teaching Professionals",
+        "parent_code": "2",
+        "parent_title": "Professionals",
+        "skill_level": 4,
+        "description": (
+            "Teach the theory and practice of one or more disciplines at "
+            "various educational levels from primary and secondary schools "
+            "to universities. Includes special education teachers and "
+            "other education professionals."
+        ),
+    },
+    {
+        "code": "24",
+        "title": "Business and Administration Professionals",
+        "parent_code": "2",
+        "parent_title": "Professionals",
+        "skill_level": 4,
+        "description": (
+            "Analyse and advise on financial, accounting, policy, "
+            "organisational and management matters. Includes accountants, "
+            "financial and investment advisers, human resource and "
+            "management consultants."
+        ),
+    },
+    {
+        "code": "25",
+        "title": "Information and Communications Technology Professionals",
+        "parent_code": "2",
+        "parent_title": "Professionals",
+        "skill_level": 4,
+        "description": (
+            "Design, develop, test and maintain software, hardware and "
+            "network systems. Includes software developers, database "
+            "administrators, systems analysts and web developers."
+        ),
+    },
+    {
+        "code": "26",
+        "title": "Legal, Social and Cultural Professionals",
+        "parent_code": "2",
+        "parent_title": "Professionals",
+        "skill_level": 4,
+        "description": (
+            "Provide legal services, conduct social-science research, "
+            "minister to religious groups and create literary, visual and "
+            "performing art works. Includes lawyers, economists, social "
+            "workers, journalists and artists."
+        ),
+    },
+    # ── Major Group 3: Technicians and Associate Professionals ───────────
+    {
+        "code": "31",
+        "title": "Science and Engineering Associate Professionals",
+        "parent_code": "3",
+        "parent_title": "Technicians and Associate Professionals",
+        "skill_level": 3,
+        "description": (
+            "Perform technical tasks in research, engineering, "
+            "manufacturing, construction, mining and related fields "
+            "under the supervision of science and engineering "
+            "professionals."
+        ),
+    },
+    {
+        "code": "32",
+        "title": "Health Associate Professionals",
+        "parent_code": "3",
+        "parent_title": "Technicians and Associate Professionals",
+        "skill_level": 3,
+        "description": (
+            "Provide technical and practical support in health services. "
+            "Includes medical and pharmaceutical technicians, nursing "
+            "associates, physiotherapy technicians and community health "
+            "workers."
+        ),
+    },
+    {
+        "code": "33",
+        "title": "Business and Administration Associate Professionals",
+        "parent_code": "3",
+        "parent_title": "Technicians and Associate Professionals",
+        "skill_level": 3,
+        "description": (
+            "Perform business, finance, administration, sales, insurance "
+            "and related functions at a technical or paraprofessional "
+            "level. Includes bookkeepers, insurance agents, customs "
+            "officers and real estate agents."
+        ),
+    },
+    {
+        "code": "34",
+        "title": "Legal, Social, Cultural and Related Associate Professionals",
+        "parent_code": "3",
+        "parent_title": "Technicians and Associate Professionals",
+        "skill_level": 3,
+        "description": (
+            "Provide support services in legal, social, cultural, sport "
+            "and religious fields. Includes paralegals, social work "
+            "associates, sports coaches and religious associates."
+        ),
+    },
+    {
+        "code": "35",
+        "title": "Information and Communications Technicians",
+        "parent_code": "3",
+        "parent_title": "Technicians and Associate Professionals",
+        "skill_level": 3,
+        "description": (
+            "Provide technical support for ICT systems including "
+            "installation, testing, maintenance and repair of hardware, "
+            "networks and user applications."
+        ),
+    },
+    # ── Major Group 4: Clerical Support Workers ──────────────────────────
+    {
+        "code": "41",
+        "title": "General and Keyboard Clerks",
+        "parent_code": "4",
+        "parent_title": "Clerical Support Workers",
+        "skill_level": 2,
+        "description": (
+            "Record, organise, store, compute and retrieve data and "
+            "information. Includes typists, data-entry operators and "
+            "general office clerks."
+        ),
+    },
+    {
+        "code": "42",
+        "title": "Customer Services Clerks",
+        "parent_code": "4",
+        "parent_title": "Clerical Support Workers",
+        "skill_level": 2,
+        "description": (
+            "Interact directly with clients and customers to provide "
+            "information, handle complaints and process transactions. "
+            "Includes bank tellers, receptionists and call-centre agents."
+        ),
+    },
+    {
+        "code": "43",
+        "title": "Numerical and Material Recording Clerks",
+        "parent_code": "4",
+        "parent_title": "Clerical Support Workers",
+        "skill_level": 2,
+        "description": (
+            "Record, compute and retrieve financial and statistical data, "
+            "and keep records of materials, goods and transport schedules. "
+            "Includes accounting clerks and stock clerks."
+        ),
+    },
+    {
+        "code": "44",
+        "title": "Other Clerical Support Workers",
+        "parent_code": "4",
+        "parent_title": "Clerical Support Workers",
+        "skill_level": 2,
+        "description": (
+            "Perform clerical duties not classified elsewhere such as "
+            "coding, proof-reading, filing and sorting mail. Includes "
+            "library clerks and mail carriers."
+        ),
+    },
+    # ── Major Group 5: Service and Sales Workers ─────────────────────────
+    {
+        "code": "51",
+        "title": "Personal Service Workers",
+        "parent_code": "5",
+        "parent_title": "Service and Sales Workers",
+        "skill_level": 2,
+        "description": (
+            "Provide personal services related to travel, housekeeping, "
+            "food preparation, hairdressing, beauty treatment, companionship "
+            "and other areas. Includes cooks, waiters and hairdressers."
+        ),
+    },
+    {
+        "code": "52",
+        "title": "Sales Workers",
+        "parent_code": "5",
+        "parent_title": "Service and Sales Workers",
+        "skill_level": 2,
+        "description": (
+            "Sell goods and services wholesale or retail, operate market "
+            "stalls and demonstrate goods. Includes shop keepers, street "
+            "vendors and sales demonstrators."
+        ),
+    },
+    {
+        "code": "53",
+        "title": "Personal Care Workers",
+        "parent_code": "5",
+        "parent_title": "Service and Sales Workers",
+        "skill_level": 2,
+        "description": (
+            "Provide personal care to children, the elderly and persons "
+            "with health problems at home or in care institutions. "
+            "Includes child care workers and home-based health aides."
+        ),
+    },
+    {
+        "code": "54",
+        "title": "Protective Services Workers",
+        "parent_code": "5",
+        "parent_title": "Service and Sales Workers",
+        "skill_level": 2,
+        "description": (
+            "Protect persons and property against fire, illegal acts and "
+            "other hazards. Includes police officers, fire-fighters and "
+            "private security guards."
+        ),
+    },
+    # ── Major Group 6: Skilled Agricultural, Forestry and Fishery Workers
+    {
+        "code": "61",
+        "title": "Market-oriented Skilled Agricultural Workers",
+        "parent_code": "6",
+        "parent_title": "Skilled Agricultural, Forestry and Fishery Workers",
+        "skill_level": 2,
+        "description": (
+            "Plan, organise and perform farming operations to grow and "
+            "harvest crops, breed and raise livestock and produce a "
+            "variety of animal husbandry products for sale or delivery "
+            "to wholesale buyers and marketing organisations."
+        ),
+    },
+    {
+        "code": "62",
+        "title": "Market-oriented Skilled Forestry, Fishery and Hunting Workers",
+        "parent_code": "6",
+        "parent_title": "Skilled Agricultural, Forestry and Fishery Workers",
+        "skill_level": 2,
+        "description": (
+            "Plan, organise and perform forestry, aquaculture and "
+            "hunting operations to grow and harvest timber, cultivate "
+            "and catch fish, and hunt or trap wild animals for market "
+            "sale."
+        ),
+    },
+    {
+        "code": "63",
+        "title": "Subsistence Farmers, Fishers, Hunters and Gatherers",
+        "parent_code": "6",
+        "parent_title": "Skilled Agricultural, Forestry and Fishery Workers",
+        "skill_level": 2,
+        "description": (
+            "Grow crops, raise livestock, catch fish, hunt or gather "
+            "wild products primarily for their own consumption or that "
+            "of their household. Common in rural India where small and "
+            "marginal holdings predominate."
+        ),
+    },
+    # ── Major Group 7: Craft and Related Trades Workers ──────────────────
+    {
+        "code": "71",
+        "title": "Building and Related Trades Workers (excluding Electricians)",
+        "parent_code": "7",
+        "parent_title": "Craft and Related Trades Workers",
+        "skill_level": 2,
+        "description": (
+            "Construct, maintain and repair buildings, roads and other "
+            "structures. Includes masons, carpenters, plasterers, "
+            "roofers and floor layers."
+        ),
+    },
+    {
+        "code": "72",
+        "title": "Metal, Machinery and Related Trades Workers",
+        "parent_code": "7",
+        "parent_title": "Craft and Related Trades Workers",
+        "skill_level": 2,
+        "description": (
+            "Cast, weld, forge, shape and tool metal; install, fit and "
+            "maintain machinery, equipment and mechanical components. "
+            "Includes blacksmiths, welders and fitters."
+        ),
+    },
+    {
+        "code": "73",
+        "title": "Handicraft and Printing Workers",
+        "parent_code": "7",
+        "parent_title": "Craft and Related Trades Workers",
+        "skill_level": 2,
+        "description": (
+            "Produce handmade decorative articles, pottery, glass, "
+            "textile and leather craft goods. Set up and operate "
+            "printing presses and bind books."
+        ),
+    },
+    {
+        "code": "74",
+        "title": "Electrical and Electronic Trades Workers",
+        "parent_code": "7",
+        "parent_title": "Craft and Related Trades Workers",
+        "skill_level": 2,
+        "description": (
+            "Install, maintain and repair electrical wiring, motors, "
+            "transformers, electronic equipment and telecommunications "
+            "systems. Includes electricians and electronics mechanics."
+        ),
+    },
+    {
+        "code": "75",
+        "title": (
+            "Food Processing, Woodworking, Garment and Other Craft "
+            "and Related Trades Workers"
+        ),
+        "parent_code": "7",
+        "parent_title": "Craft and Related Trades Workers",
+        "skill_level": 2,
+        "description": (
+            "Process food, work with wood, make garments and perform "
+            "other craft-related activities. Includes butchers, bakers, "
+            "tailors, cabinet makers and weavers."
+        ),
+    },
+    # ── Major Group 8: Plant and Machine Operators, and Assemblers ───────
+    {
+        "code": "81",
+        "title": "Stationary Plant and Machine Operators",
+        "parent_code": "8",
+        "parent_title": "Plant and Machine Operators, and Assemblers",
+        "skill_level": 2,
+        "description": (
+            "Operate and monitor stationary industrial machinery and "
+            "equipment used in mining, manufacturing, processing and "
+            "utilities. Includes machine tool operators and chemical "
+            "plant operators."
+        ),
+    },
+    {
+        "code": "82",
+        "title": "Assemblers",
+        "parent_code": "8",
+        "parent_title": "Plant and Machine Operators, and Assemblers",
+        "skill_level": 2,
+        "description": (
+            "Assemble component parts of manufactured products such as "
+            "mechanical, electrical, electronic and metal articles "
+            "according to specifications."
+        ),
+    },
+    {
+        "code": "83",
+        "title": "Drivers and Mobile Plant Operators",
+        "parent_code": "8",
+        "parent_title": "Plant and Machine Operators, and Assemblers",
+        "skill_level": 2,
+        "description": (
+            "Drive and operate trains, motor vehicles, mobile heavy "
+            "equipment and other transport machinery. Includes truck "
+            "drivers, bus drivers and auto-rickshaw drivers."
+        ),
+    },
+    # ── Major Group 9: Elementary Occupations ────────────────────────────
+    {
+        "code": "91",
+        "title": "Cleaners and Helpers",
+        "parent_code": "9",
+        "parent_title": "Elementary Occupations",
+        "skill_level": 1,
+        "description": (
+            "Sweep, wash, dust and clean buildings, vehicles and public "
+            "areas; wash dishes, laundry and assist in kitchens and "
+            "households."
+        ),
+    },
+    {
+        "code": "92",
+        "title": "Agricultural, Forestry and Fishery Labourers",
+        "parent_code": "9",
+        "parent_title": "Elementary Occupations",
+        "skill_level": 1,
+        "description": (
+            "Perform simple routine tasks in crop production, forestry, "
+            "fishing and hunting, usually under supervision. Includes "
+            "farm labourers and plantation workers."
+        ),
+    },
+    {
+        "code": "93",
+        "title": (
+            "Labourers in Mining, Construction, Manufacturing and Transport"
+        ),
+        "parent_code": "9",
+        "parent_title": "Elementary Occupations",
+        "skill_level": 1,
+        "description": (
+            "Perform simple routine physical tasks in mining, "
+            "construction, manufacturing and transport sectors. Includes "
+            "hand packers, load carriers and earth-moving labourers."
+        ),
+    },
+    {
+        "code": "94",
+        "title": "Food Preparation Assistants",
+        "parent_code": "9",
+        "parent_title": "Elementary Occupations",
+        "skill_level": 1,
+        "description": (
+            "Prepare and cook food in restaurants, hotels, street stalls "
+            "and homes following simple recipes or instructions. Includes "
+            "kitchen helpers and fast-food preparers."
+        ),
+    },
+    {
+        "code": "95",
+        "title": "Street and Related Sales and Service Workers",
+        "parent_code": "9",
+        "parent_title": "Elementary Occupations",
+        "skill_level": 1,
+        "description": (
+            "Sell goods and provide services on streets and in public "
+            "places. Includes newspaper vendors, shoe shiners and "
+            "door-to-door salespersons."
+        ),
+    },
+    {
+        "code": "96",
+        "title": "Refuse Workers and Other Elementary Workers",
+        "parent_code": "9",
+        "parent_title": "Elementary Occupations",
+        "skill_level": 1,
+        "description": (
+            "Collect and sort refuse, sweep streets and public places, "
+            "and perform other elementary tasks not classified elsewhere. "
+            "Includes garbage collectors and manual scavengers."
+        ),
+    },
+]
+
+
+def build_taxonomy(force: bool = False) -> None:
+    """Build the NCO 2015 taxonomy JSON from embedded seed data."""
+    if OUTPUT_PATH.exists() and not force:
+        print(f"[skip] {OUTPUT_PATH} already exists. Use --force to overwrite.")
+        return
+
+    # Ensure the output directory exists
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    # Build the full taxonomy structure
+    taxonomy = {
+        "source": "NCO 2015 (National Classification of Occupations, India)",
+        "base_standard": "ISCO-08",
+        "level": "2-digit subdivision",
+        "record_count": len(NCO_2DIGIT),
+        "occupations": NCO_2DIGIT,
+    }
+
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as fh:
+        json.dump(taxonomy, fh, indent=2, ensure_ascii=False)
+
+    print(f"[done] Wrote {len(NCO_2DIGIT)} occupation records to {OUTPUT_PATH}")
+
+
+# ---------------------------------------------------------------------------
+# Future extension point: parse directly from the NCO 2015 PDF
+# ---------------------------------------------------------------------------
+def parse_nco_pdf(pdf_path: str) -> list[dict]:
+    """
+    Placeholder for PDF-based extraction.
+
+    When the official NCO 2015 PDF is available at *pdf_path*, this function
+    can be implemented to extract 3- and 4-digit codes as well. For now it
+    raises NotImplementedError so callers know to rely on the embedded data.
+    """
+    raise NotImplementedError(
+        "PDF parsing is not yet implemented. "
+        "Install pdfplumber or tabula-py and extend this function."
+    )
+
+
+if __name__ == "__main__":
+    force = "--force" in sys.argv
+    build_taxonomy(force=force)

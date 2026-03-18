@@ -1,0 +1,346 @@
+[
+  {
+    "nco_2digit": "01",
+    "group_title": "Commissioned Armed Forces Officers",
+    "demand_index": 20,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Recruitment through UPSC/SSB; not on civilian portals",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "02",
+    "group_title": "Non-commissioned Armed Forces Officers",
+    "demand_index": 18,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Military recruitment rallies; not on civilian portals",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "03",
+    "group_title": "Armed Forces Occupations, Other Ranks",
+    "demand_index": 22,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Agniveer scheme and recruitment rallies; high applicant volume",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "11",
+    "group_title": "Chief Executives, Senior Officials and Legislators",
+    "demand_index": 15,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Low portal listings; hiring via headhunters/networks",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "12",
+    "group_title": "Administrative and Commercial Managers",
+    "demand_index": 35,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Moderate demand across sectors; mix of portal and referral hiring",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "13",
+    "group_title": "Production and Specialised Services Managers",
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Steady demand in manufacturing and services sectors",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "14",
+    "group_title": "Hospitality, Retail and Other Services Managers",
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Growing retail/hospitality sector; moderate portal presence",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "21",
+    "group_title": "Science and Engineering Professionals",
+    "demand_index": 65,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Strong demand across engineering disciplines; infrastructure push",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "22",
+    "group_title": "Health Professionals",
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "High societal demand but much hiring is institutional/government",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "23",
+    "group_title": "Teaching Professionals",
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Large employment base; government recruitment dominates",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "24",
+    "group_title": "Business and Administration Professionals",
+    "demand_index": 60,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "CA/CS/finance roles show strong portal activity",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "25",
+    "group_title": "Information and Communications Technology Professionals",
+    "demand_index": 95,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Highest portal demand; IT services is India's largest formal employer of graduates",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "26",
+    "group_title": "Legal, Social and Cultural Professionals",
+    "demand_index": 25,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Niche demand; legal/media/arts roles less frequently on portals",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "31",
+    "group_title": "Science and Engineering Associate Professionals",
+    "demand_index": 50,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Technician roles in demand for infrastructure and manufacturing",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "32",
+    "group_title": "Health Associate Professionals",
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Nursing and allied health demand growing with healthcare expansion",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "33",
+    "group_title": "Business and Administration Associate Professionals",
+    "demand_index": 50,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Banking, insurance, and administrative support roles",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "34",
+    "group_title": "Legal, Social, Cultural and Related Associate Professionals",
+    "demand_index": 20,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Limited portal visibility; many roles filled via networks",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "35",
+    "group_title": "Information and Communications Technicians",
+    "demand_index": 70,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "IT support and networking roles consistently in demand",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "41",
+    "group_title": "General and Keyboard Clerks",
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Data entry and office clerk positions common on portals",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "42",
+    "group_title": "Customer Services Clerks",
+    "demand_index": 65,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "BPO/call centre/customer support — high volume hiring",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "43",
+    "group_title": "Numerical and Material Recording Clerks",
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Accounting clerks and inventory managers; steady demand",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "44",
+    "group_title": "Other Clerical Support Workers",
+    "demand_index": 25,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Miscellaneous clerical roles; limited portal presence",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "51",
+    "group_title": "Personal Service Workers",
+    "demand_index": 50,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Hospitality, beauty, wellness sectors growing on aggregator platforms",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "52",
+    "group_title": "Sales Workers",
+    "demand_index": 70,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Retail and sales roles are among the most listed on Indian job portals",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "53",
+    "group_title": "Personal Care Workers",
+    "demand_index": 30,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Growing but mostly informal; urban platforms emerging",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "54",
+    "group_title": "Protective Services Workers",
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Private security sector large; government recruitment separate",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "61",
+    "group_title": "Market-oriented Skilled Agricultural Workers",
+    "demand_index": 10,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Minimal portal presence; farming is largely self-employed/informal",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "62",
+    "group_title": "Market-oriented Skilled Forestry, Fishery and Hunting Workers",
+    "demand_index": 8,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Very low portal presence; traditional/informal labour markets",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "63",
+    "group_title": "Subsistence Farmers, Fishers, Hunters and Gatherers",
+    "demand_index": 3,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Subsistence work is outside formal job markets entirely",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "71",
+    "group_title": "Building and Related Trades Workers",
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Construction boom drives demand; mix of contractor and portal hiring",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "72",
+    "group_title": "Metal, Machinery and Related Trades Workers",
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Manufacturing sector demand; ITI graduates actively sought",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "73",
+    "group_title": "Handicraft and Printing Workers",
+    "demand_index": 12,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Declining traditional demand; niche artisan markets",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "74",
+    "group_title": "Electrical and Electronic Trades Workers",
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Electrification and electronics repair create consistent demand",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "75",
+    "group_title": "Food Processing, Wood Working, Garment Workers",
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Garment and food processing sectors are major employers",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "81",
+    "group_title": "Stationary Plant and Machine Operators",
+    "demand_index": 35,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Factory and plant operators; industrial zone hiring",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "82",
+    "group_title": "Assemblers",
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Electronics and auto assembly lines; growing with Make in India",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "83",
+    "group_title": "Drivers and Mobile Plant Operators",
+    "demand_index": 60,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Very high actual demand via ride-hailing and logistics platforms",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "91",
+    "group_title": "Cleaners and Helpers",
+    "demand_index": 30,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "High actual employment but mostly informal; some platform presence (Urban Company etc.)",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "92",
+    "group_title": "Agricultural, Forestry and Fishery Labourers",
+    "demand_index": 5,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Largest workforce segment but entirely outside digital job portals",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "93",
+    "group_title": "Labourers in Mining, Construction, Manufacturing and Transport",
+    "demand_index": 25,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Some contractor-portal presence; mostly informal hiring at labour chowks",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "94",
+    "group_title": "Food Preparation Assistants",
+    "demand_index": 35,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Restaurant and food delivery ecosystem growth; platform hiring emerging",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "95",
+    "group_title": "Street and Related Sales and Service Workers",
+    "demand_index": 5,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Street vendors and hawkers — entirely outside formal job portals",
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "96",
+    "group_title": "Refuse Workers and Other Elementary Workers",
+    "demand_index": 15,
+    "demand_label": "portal-derived demand proxy",
+    "notes": "Municipal hiring; Swachh Bharat related roles; some portal presence",
+    "source": "fallback_embedded"
+  }
+]

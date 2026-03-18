@@ -1,0 +1,1292 @@
+[
+  {
+    "occupation_code": "01",
+    "occupation_title": "Commissioned Armed Forces Officers",
+    "occupation_group": "Armed Forces Occupations",
+    "sub_occupation_count": 1,
+    "description": "Plan, direct and coordinate military operations in the army, navy, air force or other armed services branches. They hold ranks from lieutenant / sub-lieutenant upward.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 300000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 55000.0,
+    "education_proxy": "Bachelor's degree; military academy training (NDA/IMA/OTA)",
+    "training_context": "National Defence Academy or Indian Military Academy; officer training 1-3 years; specialization courses",
+    "skill_level": 4,
+    "key_competencies": [
+      "Military tactics",
+      "Leadership",
+      "Strategic planning",
+      "Physical fitness",
+      "Crisis management"
+    ],
+    "demand_index": 20,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "02",
+    "occupation_title": "Non-commissioned Armed Forces Officers",
+    "occupation_group": "Armed Forces Occupations",
+    "sub_occupation_count": 1,
+    "description": "Supervise and lead small units of enlisted military personnel. Responsibilities include enforcing discipline, training troops and ensuring operational readiness.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 35000.0,
+    "education_proxy": "Higher secondary; military training",
+    "training_context": "Basic military training; NCO academy; specialized technical courses",
+    "skill_level": 2,
+    "key_competencies": [
+      "Squad leadership",
+      "Tactical operations",
+      "Equipment handling",
+      "Training supervision",
+      "Discipline enforcement"
+    ],
+    "demand_index": 18,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "03",
+    "occupation_title": "Armed Forces Occupations, Other Ranks",
+    "occupation_group": "Armed Forces Occupations",
+    "sub_occupation_count": 1,
+    "description": "Perform military duties at the enlisted level including guard duties, weapons handling, vehicle operation and participation in military exercises and combat operations.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 900000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 25000.0,
+    "education_proxy": "Secondary education (10th pass)",
+    "training_context": "Basic military training (6-12 months); arms training; physical conditioning",
+    "skill_level": 1,
+    "key_competencies": [
+      "Combat readiness",
+      "Weapon handling",
+      "Physical endurance",
+      "Discipline",
+      "Team operations"
+    ],
+    "demand_index": 22,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "11",
+    "occupation_title": "Chief Executives, Senior Officials and Legislators",
+    "occupation_group": "Managers",
+    "sub_occupation_count": 1,
+    "description": "Determine and formulate policies, direct and plan the activities of enterprises, governments and other organisations, or manage them on their own behalf or on behalf of shareholders.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 3000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 80000.0,
+    "education_proxy": "Postgraduate degree or equivalent; MBA/MPA common",
+    "training_context": "Extensive management experience (15+ years); leadership development programs; policy and governance training",
+    "skill_level": 4,
+    "key_competencies": [
+      "Strategic planning",
+      "Policy formulation",
+      "Stakeholder management",
+      "Governance",
+      "Decision-making"
+    ],
+    "demand_index": 15,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "12",
+    "occupation_title": "Administrative and Commercial Managers",
+    "occupation_group": "Managers",
+    "sub_occupation_count": 1,
+    "description": "Plan, organise, direct, control and coordinate the financial, administrative, human resource, policy, planning, research, marketing and advertising activities of enterprises.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 5500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 60000.0,
+    "education_proxy": "Bachelor's or postgraduate degree in business/management",
+    "training_context": "5-10 years managerial experience; professional certifications (PMP, Six Sigma); industry-specific training",
+    "skill_level": 4,
+    "key_competencies": [
+      "Operations management",
+      "Financial planning",
+      "Human resource management",
+      "Business development",
+      "Compliance"
+    ],
+    "demand_index": 35,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "13",
+    "occupation_title": "Production and Specialised Services Managers",
+    "occupation_group": "Managers",
+    "sub_occupation_count": 1,
+    "description": "Plan, direct and coordinate production activities in agriculture, forestry, manufacturing, mining, construction, transport, health, education, ICT and other specialised services.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 5200000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 55000.0,
+    "education_proxy": "Bachelor's degree in engineering/technology or relevant field",
+    "training_context": "Technical management training; sector-specific certifications; 5+ years in production/operations",
+    "skill_level": 4,
+    "key_competencies": [
+      "Production planning",
+      "Quality management",
+      "Supply chain management",
+      "Technical oversight",
+      "Safety management"
+    ],
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "14",
+    "occupation_title": "Hospitality, Retail and Other Services Managers",
+    "occupation_group": "Managers",
+    "sub_occupation_count": 1,
+    "description": "Plan, organise, direct, control and coordinate the activities of commercial enterprises providing hospitality, retail, sport, recreation and other consumer services.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 6000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 45000.0,
+    "education_proxy": "Bachelor's degree in hotel management/business; diploma acceptable",
+    "training_context": "Customer service training; hospitality management programs; 3-5 years experience",
+    "skill_level": 4,
+    "key_competencies": [
+      "Customer service",
+      "Revenue management",
+      "Staff supervision",
+      "Inventory management",
+      "Marketing"
+    ],
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "21",
+    "occupation_title": "Science and Engineering Professionals",
+    "occupation_group": "Professionals",
+    "sub_occupation_count": 1,
+    "description": "Conduct research, improve or develop concepts and theories, and apply scientific and engineering knowledge in fields such as physics, chemistry, mathematics, statistics and engineering.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 4000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 45000.0,
+    "education_proxy": "Bachelor's or Master's in science/engineering (B.Tech/M.Tech/M.Sc)",
+    "training_context": "Research methodology; laboratory techniques; professional engineering certifications; continuing education",
+    "skill_level": 4,
+    "key_competencies": [
+      "Research and analysis",
+      "Technical design",
+      "Problem-solving",
+      "Data analysis",
+      "Scientific methodology"
+    ],
+    "demand_index": 65,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "22",
+    "occupation_title": "Health Professionals",
+    "occupation_group": "Professionals",
+    "sub_occupation_count": 1,
+    "description": "Conduct research, diagnose and treat human illnesses and disorders, and provide related services. Includes medical doctors, dentists, pharmacists, nursing and midwifery professionals, and traditional medicine practitioners.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 3500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 50000.0,
+    "education_proxy": "MBBS/BDS/BAMS/BHMS or equivalent professional degree; postgraduate specialization common",
+    "training_context": "Internship and residency (1-3 years); continuing medical education; professional registration with Medical Council of India",
+    "skill_level": 4,
+    "key_competencies": [
+      "Clinical diagnosis",
+      "Patient care",
+      "Medical procedures",
+      "Health counselling",
+      "Emergency response"
+    ],
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "23",
+    "occupation_title": "Teaching Professionals",
+    "occupation_group": "Professionals",
+    "sub_occupation_count": 1,
+    "description": "Teach the theory and practice of one or more disciplines at various educational levels from primary and secondary schools to universities. Includes special education teachers and other education professionals.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 8500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 35000.0,
+    "education_proxy": "Bachelor's degree + B.Ed; Master's/PhD for higher education",
+    "training_context": "Teacher training certification (B.Ed/D.El.Ed); CTET/state TET qualification; pedagogy workshops",
+    "skill_level": 4,
+    "key_competencies": [
+      "Curriculum design",
+      "Classroom management",
+      "Student assessment",
+      "Pedagogical skills",
+      "Subject expertise"
+    ],
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "24",
+    "occupation_title": "Business and Administration Professionals",
+    "occupation_group": "Professionals",
+    "sub_occupation_count": 1,
+    "description": "Analyse and advise on financial, accounting, policy, organisational and management matters. Includes accountants, financial and investment advisers, human resource and management consultants.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 4000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 42000.0,
+    "education_proxy": "Bachelor's or Master's degree in commerce/business (B.Com/MBA/CA/CS)",
+    "training_context": "Professional certification (CA, CS, CMA, CFA); articleship; continuing professional development",
+    "skill_level": 4,
+    "key_competencies": [
+      "Financial analysis",
+      "Accounting",
+      "Business consulting",
+      "Regulatory compliance",
+      "Strategic planning"
+    ],
+    "demand_index": 60,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "25",
+    "occupation_title": "Information and Communications Technology Professionals",
+    "occupation_group": "Professionals",
+    "sub_occupation_count": 1,
+    "description": "Design, develop, test and maintain software, hardware and network systems. Includes software developers, database administrators, systems analysts and web developers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 3300000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 60000.0,
+    "education_proxy": "Bachelor's in computer science/IT (B.Tech/BCA/MCA)",
+    "training_context": "Technology certifications (AWS, Azure, Cisco); coding bootcamps; agile/DevOps training; continuous learning",
+    "skill_level": 4,
+    "key_competencies": [
+      "Software development",
+      "System design",
+      "Database management",
+      "Cybersecurity",
+      "Cloud computing"
+    ],
+    "demand_index": 95,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "26",
+    "occupation_title": "Legal, Social and Cultural Professionals",
+    "occupation_group": "Professionals",
+    "sub_occupation_count": 1,
+    "description": "Provide legal services, conduct social-science research, minister to religious groups and create literary, visual and performing art works. Includes lawyers, economists, social workers, journalists and artists.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 2000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 30000.0,
+    "education_proxy": "Bachelor's or Master's degree (LLB, MA, MSW); professional registration",
+    "training_context": "Bar council enrollment (law); field practicum (social work); creative portfolio development",
+    "skill_level": 4,
+    "key_competencies": [
+      "Legal analysis",
+      "Social research",
+      "Creative expression",
+      "Advocacy",
+      "Cultural literacy"
+    ],
+    "demand_index": 25,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "31",
+    "occupation_title": "Science and Engineering Associate Professionals",
+    "occupation_group": "Technicians and Associate Professionals",
+    "sub_occupation_count": 1,
+    "description": "Perform technical tasks in research, engineering, manufacturing, construction, mining and related fields under the supervision of science and engineering professionals.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 3500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 25000.0,
+    "education_proxy": "Diploma in engineering/technology (polytechnic); some hold B.Tech",
+    "training_context": "Industrial training; apprenticeship programs; sector skill council certifications",
+    "skill_level": 3,
+    "key_competencies": [
+      "Technical drawing",
+      "Equipment operation",
+      "Quality testing",
+      "Fieldwork",
+      "Technical troubleshooting"
+    ],
+    "demand_index": 50,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "32",
+    "occupation_title": "Health Associate Professionals",
+    "occupation_group": "Technicians and Associate Professionals",
+    "sub_occupation_count": 1,
+    "description": "Provide technical and practical support in health services. Includes medical and pharmaceutical technicians, nursing associates, physiotherapy technicians and community health workers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 2500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 22000.0,
+    "education_proxy": "Diploma or bachelor's in nursing/pharmacy/allied health (GNM/B.Sc Nursing/D.Pharm)",
+    "training_context": "Clinical training; state nursing/pharmacy council registration; continuing education",
+    "skill_level": 3,
+    "key_competencies": [
+      "Patient care",
+      "Medication administration",
+      "Diagnostic procedures",
+      "Health education",
+      "Record keeping"
+    ],
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "33",
+    "occupation_title": "Business and Administration Associate Professionals",
+    "occupation_group": "Technicians and Associate Professionals",
+    "sub_occupation_count": 1,
+    "description": "Perform business, finance, administration, sales, insurance and related functions at a technical or paraprofessional level. Includes bookkeepers, insurance agents, customs officers and real estate agents.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 4500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 28000.0,
+    "education_proxy": "Bachelor's degree or diploma in commerce/business",
+    "training_context": "On-the-job training; short-term professional courses; banking/insurance certifications",
+    "skill_level": 3,
+    "key_competencies": [
+      "Data entry and processing",
+      "Customer relations",
+      "Bookkeeping",
+      "Sales support",
+      "Administrative coordination"
+    ],
+    "demand_index": 50,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "34",
+    "occupation_title": "Legal, Social, Cultural and Related Associate Professionals",
+    "occupation_group": "Technicians and Associate Professionals",
+    "sub_occupation_count": 1,
+    "description": "Provide support services in legal, social, cultural, sport and religious fields. Includes paralegals, social work associates, sports coaches and religious associates.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 1800000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 20000.0,
+    "education_proxy": "Diploma or bachelor's degree in relevant field",
+    "training_context": "Fieldwork training; community engagement programs; media production training",
+    "skill_level": 3,
+    "key_competencies": [
+      "Community mobilization",
+      "Documentation",
+      "Event coordination",
+      "Media production",
+      "Counselling"
+    ],
+    "demand_index": 20,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "35",
+    "occupation_title": "Information and Communications Technicians",
+    "occupation_group": "Technicians and Associate Professionals",
+    "sub_occupation_count": 1,
+    "description": "Provide technical support for ICT systems including installation, testing, maintenance and repair of hardware, networks and user applications.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 1800000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 35000.0,
+    "education_proxy": "Diploma in IT/electronics; ITI certificate; BCA",
+    "training_context": "Hardware/networking certifications; vendor-specific training (Microsoft, Cisco); apprenticeships",
+    "skill_level": 3,
+    "key_competencies": [
+      "Network setup",
+      "Hardware maintenance",
+      "User support",
+      "System administration",
+      "Troubleshooting"
+    ],
+    "demand_index": 70,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "41",
+    "occupation_title": "General and Keyboard Clerks",
+    "occupation_group": "Clerical Support Workers",
+    "sub_occupation_count": 1,
+    "description": "Record, organise, store, compute and retrieve data and information. Includes typists, data-entry operators and general office clerks.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 3500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 18000.0,
+    "education_proxy": "Higher secondary (12th pass); typing/computer certificate",
+    "training_context": "Basic computer training; typing proficiency; office procedures training",
+    "skill_level": 2,
+    "key_competencies": [
+      "Data entry",
+      "Filing and documentation",
+      "Word processing",
+      "Office administration",
+      "Record maintenance"
+    ],
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "42",
+    "occupation_title": "Customer Services Clerks",
+    "occupation_group": "Clerical Support Workers",
+    "sub_occupation_count": 1,
+    "description": "Interact directly with clients and customers to provide information, handle complaints and process transactions. Includes bank tellers, receptionists and call-centre agents.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 3000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 16000.0,
+    "education_proxy": "Higher secondary or bachelor's degree",
+    "training_context": "Customer service training; communication skills; product knowledge training",
+    "skill_level": 2,
+    "key_competencies": [
+      "Customer interaction",
+      "Information provision",
+      "Complaint handling",
+      "Cash handling",
+      "Telephone etiquette"
+    ],
+    "demand_index": 65,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "43",
+    "occupation_title": "Numerical and Material Recording Clerks",
+    "occupation_group": "Clerical Support Workers",
+    "sub_occupation_count": 1,
+    "description": "Record, compute and retrieve financial and statistical data, and keep records of materials, goods and transport schedules. Includes accounting clerks and stock clerks.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 3000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 22000.0,
+    "education_proxy": "Higher secondary with commerce; diploma in accounting",
+    "training_context": "Accounting software training (Tally); inventory management systems; basic bookkeeping courses",
+    "skill_level": 2,
+    "key_competencies": [
+      "Accounting",
+      "Inventory tracking",
+      "Data recording",
+      "Statistical compilation",
+      "Financial documentation"
+    ],
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "44",
+    "occupation_title": "Other Clerical Support Workers",
+    "occupation_group": "Clerical Support Workers",
+    "sub_occupation_count": 1,
+    "description": "Perform clerical duties not classified elsewhere such as coding, proof-reading, filing and sorting mail. Includes library clerks and mail carriers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 1700000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 15000.0,
+    "education_proxy": "Higher secondary (12th pass); basic computer literacy",
+    "training_context": "On-the-job training; office skills programs; postal/sorting procedures",
+    "skill_level": 2,
+    "key_competencies": [
+      "Mail handling",
+      "Coding and sorting",
+      "Proofreading",
+      "Library management",
+      "Administrative support"
+    ],
+    "demand_index": 25,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "51",
+    "occupation_title": "Personal Service Workers",
+    "occupation_group": "Service and Sales Workers",
+    "sub_occupation_count": 1,
+    "description": "Provide personal services related to travel, housekeeping, food preparation, hairdressing, beauty treatment, companionship and other areas. Includes cooks, waiters and hairdressers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 18000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 12000.0,
+    "education_proxy": "Secondary (10th pass) to higher secondary; vocational certificates",
+    "training_context": "Vocational training in hospitality/beauty/wellness; short-term skill courses; NSDC certifications",
+    "skill_level": 2,
+    "key_competencies": [
+      "Personal grooming services",
+      "Food service",
+      "Travel assistance",
+      "Housekeeping",
+      "Customer care"
+    ],
+    "demand_index": 50,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "52",
+    "occupation_title": "Sales Workers",
+    "occupation_group": "Service and Sales Workers",
+    "sub_occupation_count": 1,
+    "description": "Sell goods and services wholesale or retail, operate market stalls and demonstrate goods. Includes shop keepers, street vendors and sales demonstrators.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 30000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 14000.0,
+    "education_proxy": "Secondary to higher secondary; often informal training",
+    "training_context": "Product knowledge training; sales techniques; shop floor experience; some have retail management diplomas",
+    "skill_level": 2,
+    "key_competencies": [
+      "Salesmanship",
+      "Product display",
+      "Customer persuasion",
+      "Cash handling",
+      "Inventory awareness"
+    ],
+    "demand_index": 70,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "53",
+    "occupation_title": "Personal Care Workers",
+    "occupation_group": "Service and Sales Workers",
+    "sub_occupation_count": 1,
+    "description": "Provide personal care to children, the elderly and persons with health problems at home or in care institutions. Includes child care workers and home-based health aides.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 8400000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 10000.0,
+    "education_proxy": "Secondary education; short-term care training",
+    "training_context": "Healthcare assistant training; childcare/eldercare certifications; first aid training",
+    "skill_level": 2,
+    "key_competencies": [
+      "Patient assistance",
+      "Child care",
+      "Elder care",
+      "Health monitoring",
+      "Empathy and communication"
+    ],
+    "demand_index": 30,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "54",
+    "occupation_title": "Protective Services Workers",
+    "occupation_group": "Service and Sales Workers",
+    "sub_occupation_count": 1,
+    "description": "Protect persons and property against fire, illegal acts and other hazards. Includes police officers, fire-fighters and private security guards.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 11000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 18000.0,
+    "education_proxy": "Secondary to higher secondary; police/military training",
+    "training_context": "Police academy training; fire service training; private security certification (PSARA); physical fitness",
+    "skill_level": 2,
+    "key_competencies": [
+      "Law enforcement",
+      "Crowd management",
+      "Emergency response",
+      "Physical fitness",
+      "Surveillance"
+    ],
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "61",
+    "occupation_title": "Market-oriented Skilled Agricultural Workers",
+    "occupation_group": "Skilled Agricultural, Forestry and Fishery Workers",
+    "sub_occupation_count": 1,
+    "description": "Plan, organise and perform farming operations to grow and harvest crops, breed and raise livestock and produce a variety of animal husbandry products for sale or delivery to wholesale buyers and marketing organisations.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 85000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 9000.0,
+    "education_proxy": "Primary to secondary education; agricultural extension training",
+    "training_context": "Krishi Vigyan Kendra (KVK) training; state agricultural university extension; practical farming experience",
+    "skill_level": 2,
+    "key_competencies": [
+      "Crop cultivation",
+      "Soil management",
+      "Irrigation",
+      "Pest control",
+      "Harvest and storage"
+    ],
+    "demand_index": 10,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "62",
+    "occupation_title": "Market-oriented Skilled Forestry, Fishery and Hunting Workers",
+    "occupation_group": "Skilled Agricultural, Forestry and Fishery Workers",
+    "sub_occupation_count": 1,
+    "description": "Plan, organise and perform forestry, aquaculture and hunting operations to grow and harvest timber, cultivate and catch fish, and hunt or trap wild animals for market sale.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 12000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 10000.0,
+    "education_proxy": "Primary to secondary education; some vocational training",
+    "training_context": "Fishery training institutes; forestry extension programs; traditional knowledge transfer",
+    "skill_level": 2,
+    "key_competencies": [
+      "Fish cultivation",
+      "Forest produce collection",
+      "Animal husbandry",
+      "Sustainable harvesting",
+      "Equipment maintenance"
+    ],
+    "demand_index": 8,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "63",
+    "occupation_title": "Subsistence Farmers, Fishers, Hunters and Gatherers",
+    "occupation_group": "Skilled Agricultural, Forestry and Fishery Workers",
+    "sub_occupation_count": 1,
+    "description": "Grow crops, raise livestock, catch fish, hunt or gather wild products primarily for their own consumption or that of their household. Common in rural India where small and marginal holdings predominate.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 32300000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 6000.0,
+    "education_proxy": "Primary education or below; informal/traditional learning",
+    "training_context": "Intergenerational knowledge transfer; minimal formal training; some government scheme participation",
+    "skill_level": 2,
+    "key_competencies": [
+      "Traditional farming",
+      "Foraging",
+      "Basic animal rearing",
+      "Weather reading",
+      "Self-sufficiency"
+    ],
+    "demand_index": 3,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "71",
+    "occupation_title": "Building and Related Trades Workers (excluding Electricians)",
+    "occupation_group": "Craft and Related Trades Workers",
+    "sub_occupation_count": 1,
+    "description": "Construct, maintain and repair buildings, roads and other structures. Includes masons, carpenters, plasterers, roofers and floor layers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 20000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 14000.0,
+    "education_proxy": "Primary to secondary education; ITI certificate in some cases",
+    "training_context": "Apprenticeship under master craftsmen; PMKVY construction sector courses; on-site training",
+    "skill_level": 2,
+    "key_competencies": [
+      "Masonry",
+      "Carpentry",
+      "Plumbing",
+      "Painting",
+      "Blueprint reading"
+    ],
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "72",
+    "occupation_title": "Metal, Machinery and Related Trades Workers",
+    "occupation_group": "Craft and Related Trades Workers",
+    "sub_occupation_count": 1,
+    "description": "Cast, weld, forge, shape and tool metal; install, fit and maintain machinery, equipment and mechanical components. Includes blacksmiths, welders and fitters.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 15000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 16000.0,
+    "education_proxy": "ITI/ITC certificate; secondary education",
+    "training_context": "ITI courses (fitter, turner, welder, machinist); apprenticeship under Apprentices Act; NSDC certifications",
+    "skill_level": 2,
+    "key_competencies": [
+      "Welding",
+      "Machining",
+      "Sheet metal work",
+      "Tool maintenance",
+      "Quality inspection"
+    ],
+    "demand_index": 45,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "73",
+    "occupation_title": "Handicraft and Printing Workers",
+    "occupation_group": "Craft and Related Trades Workers",
+    "sub_occupation_count": 1,
+    "description": "Produce handmade decorative articles, pottery, glass, textile and leather craft goods. Set up and operate printing presses and bind books.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 5500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 12000.0,
+    "education_proxy": "Primary to secondary; traditional craft training",
+    "training_context": "Master craftsperson training; DC Handicrafts programs; printing technology diplomas",
+    "skill_level": 2,
+    "key_competencies": [
+      "Artisan craftsmanship",
+      "Pattern making",
+      "Printing operations",
+      "Material selection",
+      "Design execution"
+    ],
+    "demand_index": 12,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "74",
+    "occupation_title": "Electrical and Electronic Trades Workers",
+    "occupation_group": "Craft and Related Trades Workers",
+    "sub_occupation_count": 1,
+    "description": "Install, maintain and repair electrical wiring, motors, transformers, electronic equipment and telecommunications systems. Includes electricians and electronics mechanics.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 10000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 18000.0,
+    "education_proxy": "ITI certificate in electrician/electronics; diploma",
+    "training_context": "ITI electrician course (2 years); apprenticeship; wireman licensing; safety training",
+    "skill_level": 2,
+    "key_competencies": [
+      "Electrical installation",
+      "Circuit repair",
+      "Electronics troubleshooting",
+      "Safety protocols",
+      "Equipment testing"
+    ],
+    "demand_index": 55,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "75",
+    "occupation_title": "Food Processing, Wood Working, Garment and Other Craft Workers",
+    "occupation_group": "Craft and Related Trades Workers",
+    "sub_occupation_count": 1,
+    "description": "Process food, work with wood, make garments and perform other craft-related activities. Includes butchers, bakers, tailors, cabinet makers and weavers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 16900000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 13000.0,
+    "education_proxy": "Primary to secondary; vocational training",
+    "training_context": "Food technology diplomas; tailoring/garment courses; NSDC sector skill council training",
+    "skill_level": 2,
+    "key_competencies": [
+      "Food preparation",
+      "Garment construction",
+      "Wood crafting",
+      "Quality control",
+      "Machine operation"
+    ],
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "81",
+    "occupation_title": "Stationary Plant and Machine Operators",
+    "occupation_group": "Plant and Machine Operators, and Assemblers",
+    "sub_occupation_count": 1,
+    "description": "Operate and monitor stationary industrial machinery and equipment used in mining, manufacturing, processing and utilities. Includes machine tool operators and chemical plant operators.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 12000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 16000.0,
+    "education_proxy": "Secondary education; ITI in relevant trade",
+    "training_context": "Machine-specific operator training; boiler attendant certification; industrial safety courses",
+    "skill_level": 2,
+    "key_competencies": [
+      "Machine operation",
+      "Process monitoring",
+      "Basic maintenance",
+      "Safety compliance",
+      "Production logging"
+    ],
+    "demand_index": 35,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "82",
+    "occupation_title": "Assemblers",
+    "occupation_group": "Plant and Machine Operators, and Assemblers",
+    "sub_occupation_count": 1,
+    "description": "Assemble component parts of manufactured products such as mechanical, electrical, electronic and metal articles according to specifications.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 5300000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 14000.0,
+    "education_proxy": "Secondary education; some ITI training",
+    "training_context": "Assembly line training; quality control procedures; lean manufacturing basics",
+    "skill_level": 2,
+    "key_competencies": [
+      "Component assembly",
+      "Quality checking",
+      "Manual dexterity",
+      "Production tracking",
+      "Team coordination"
+    ],
+    "demand_index": 40,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "83",
+    "occupation_title": "Drivers and Mobile Plant Operators",
+    "occupation_group": "Plant and Machine Operators, and Assemblers",
+    "sub_occupation_count": 1,
+    "description": "Drive and operate trains, motor vehicles, mobile heavy equipment and other transport machinery. Includes truck drivers, bus drivers and auto-rickshaw drivers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 22000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 20000.0,
+    "education_proxy": "Primary to secondary education; valid driving license",
+    "training_context": "Driving school certification; heavy vehicle license training; transport authority permit",
+    "skill_level": 2,
+    "key_competencies": [
+      "Vehicle operation",
+      "Route navigation",
+      "Vehicle maintenance",
+      "Traffic law compliance",
+      "Cargo handling"
+    ],
+    "demand_index": 60,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "91",
+    "occupation_title": "Cleaners and Helpers",
+    "occupation_group": "Elementary Occupations",
+    "sub_occupation_count": 1,
+    "description": "Sweep, wash, dust and clean buildings, vehicles and public areas; wash dishes, laundry and assist in kitchens and households.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 30000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 8000.0,
+    "education_proxy": "Primary education or below; minimal formal requirements",
+    "training_context": "On-the-job training; basic sanitation/hygiene courses; some municipal training",
+    "skill_level": 1,
+    "key_competencies": [
+      "Cleaning procedures",
+      "Waste management",
+      "Sanitation",
+      "Equipment use",
+      "Physical stamina"
+    ],
+    "demand_index": 30,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "92",
+    "occupation_title": "Agricultural, Forestry and Fishery Labourers",
+    "occupation_group": "Elementary Occupations",
+    "sub_occupation_count": 1,
+    "description": "Perform simple routine tasks in crop production, forestry, fishing and hunting, usually under supervision. Includes farm labourers and plantation workers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 75000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 6500.0,
+    "education_proxy": "Primary education or below",
+    "training_context": "Informal on-farm training; seasonal agricultural labour; MGNREGA skilling",
+    "skill_level": 1,
+    "key_competencies": [
+      "Manual harvesting",
+      "Field preparation",
+      "Carrying and loading",
+      "Basic tool use",
+      "Physical endurance"
+    ],
+    "demand_index": 5,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "93",
+    "occupation_title": "Labourers in Mining, Construction, Manufacturing and Transport",
+    "occupation_group": "Elementary Occupations",
+    "sub_occupation_count": 1,
+    "description": "Perform simple routine physical tasks in mining, construction, manufacturing and transport sectors. Includes hand packers, load carriers and earth-moving labourers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 42000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 9000.0,
+    "education_proxy": "Primary education or below",
+    "training_context": "On-site safety induction; manual labour experience; no formal certification typically required",
+    "skill_level": 1,
+    "key_competencies": [
+      "Heavy lifting",
+      "Construction assistance",
+      "Material transport",
+      "Basic tool operation",
+      "Safety awareness"
+    ],
+    "demand_index": 25,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "94",
+    "occupation_title": "Food Preparation Assistants",
+    "occupation_group": "Elementary Occupations",
+    "sub_occupation_count": 1,
+    "description": "Prepare and cook food in restaurants, hotels, street stalls and homes following simple recipes or instructions. Includes kitchen helpers and fast-food preparers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 12000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 7500.0,
+    "education_proxy": "Primary to secondary education",
+    "training_context": "On-the-job kitchen training; basic food safety/hygiene; FSSAI awareness",
+    "skill_level": 1,
+    "key_competencies": [
+      "Food preparation assistance",
+      "Kitchen cleaning",
+      "Ingredient sorting",
+      "Basic cooking",
+      "Hygiene maintenance"
+    ],
+    "demand_index": 35,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "95",
+    "occupation_title": "Street and Related Sales and Service Workers",
+    "occupation_group": "Elementary Occupations",
+    "sub_occupation_count": 1,
+    "description": "Sell goods and provide services on streets and in public places. Includes newspaper vendors, shoe shiners and door-to-door salespersons.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 16500000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 7000.0,
+    "education_proxy": "Primary education or below; minimal formal requirements",
+    "training_context": "Self-taught or family-taught; informal apprenticeship; micro-enterprise experience",
+    "skill_level": 1,
+    "key_competencies": [
+      "Street vending",
+      "Customer interaction",
+      "Cash management",
+      "Product sourcing",
+      "Weather resilience"
+    ],
+    "demand_index": 5,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  },
+  {
+    "occupation_code": "96",
+    "occupation_title": "Refuse Workers and Other Elementary Workers",
+    "occupation_group": "Elementary Occupations",
+    "sub_occupation_count": 1,
+    "description": "Collect and sort refuse, sweep streets and public places, and perform other elementary tasks not classified elsewhere. Includes garbage collectors and manual scavengers.",
+    "tasks": null,
+    "sectors": null,
+    "employment_count": 10000000,
+    "employment_share_pct": null,
+    "pay_median_monthly": 6000.0,
+    "education_proxy": "Primary education or below",
+    "training_context": "Municipal training where applicable; waste segregation awareness; minimal formal training",
+    "skill_level": 1,
+    "key_competencies": [
+      "Waste collection",
+      "Sorting and segregation",
+      "Physical labour",
+      "Basic sanitation",
+      "Route adherence"
+    ],
+    "demand_index": 15,
+    "demand_label": "portal-derived demand proxy",
+    "source_meta": {
+      "taxonomy": "nco_2015.json",
+      "employment": "plfs_employment.csv",
+      "skills": "fallback_embedded",
+      "demand": "fallback_embedded"
+    }
+  }
+]

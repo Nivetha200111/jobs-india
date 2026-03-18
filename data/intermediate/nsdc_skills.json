@@ -1,0 +1,604 @@
+[
+  {
+    "nco_2digit": "01",
+    "group_title": "Commissioned Armed Forces Officers",
+    "education_proxy": "Bachelor's degree; military academy training (NDA/IMA/OTA)",
+    "training_context": "National Defence Academy or Indian Military Academy; officer training 1-3 years; specialization courses",
+    "key_competencies": [
+      "Military tactics",
+      "Leadership",
+      "Strategic planning",
+      "Physical fitness",
+      "Crisis management"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "02",
+    "group_title": "Non-commissioned Armed Forces Officers",
+    "education_proxy": "Higher secondary; military training",
+    "training_context": "Basic military training; NCO academy; specialized technical courses",
+    "key_competencies": [
+      "Squad leadership",
+      "Tactical operations",
+      "Equipment handling",
+      "Training supervision",
+      "Discipline enforcement"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "03",
+    "group_title": "Armed Forces Occupations, Other Ranks",
+    "education_proxy": "Secondary education (10th pass)",
+    "training_context": "Basic military training (6-12 months); arms training; physical conditioning",
+    "key_competencies": [
+      "Combat readiness",
+      "Weapon handling",
+      "Physical endurance",
+      "Discipline",
+      "Team operations"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "11",
+    "group_title": "Chief Executives, Senior Officials and Legislators",
+    "education_proxy": "Postgraduate degree or equivalent; MBA/MPA common",
+    "training_context": "Extensive management experience (15+ years); leadership development programs; policy and governance training",
+    "key_competencies": [
+      "Strategic planning",
+      "Policy formulation",
+      "Stakeholder management",
+      "Governance",
+      "Decision-making"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "12",
+    "group_title": "Administrative and Commercial Managers",
+    "education_proxy": "Bachelor's or postgraduate degree in business/management",
+    "training_context": "5-10 years managerial experience; professional certifications (PMP, Six Sigma); industry-specific training",
+    "key_competencies": [
+      "Operations management",
+      "Financial planning",
+      "Human resource management",
+      "Business development",
+      "Compliance"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "13",
+    "group_title": "Production and Specialised Services Managers",
+    "education_proxy": "Bachelor's degree in engineering/technology or relevant field",
+    "training_context": "Technical management training; sector-specific certifications; 5+ years in production/operations",
+    "key_competencies": [
+      "Production planning",
+      "Quality management",
+      "Supply chain management",
+      "Technical oversight",
+      "Safety management"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "14",
+    "group_title": "Hospitality, Retail and Other Services Managers",
+    "education_proxy": "Bachelor's degree in hotel management/business; diploma acceptable",
+    "training_context": "Customer service training; hospitality management programs; 3-5 years experience",
+    "key_competencies": [
+      "Customer service",
+      "Revenue management",
+      "Staff supervision",
+      "Inventory management",
+      "Marketing"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "21",
+    "group_title": "Science and Engineering Professionals",
+    "education_proxy": "Bachelor's or Master's in science/engineering (B.Tech/M.Tech/M.Sc)",
+    "training_context": "Research methodology; laboratory techniques; professional engineering certifications; continuing education",
+    "key_competencies": [
+      "Research and analysis",
+      "Technical design",
+      "Problem-solving",
+      "Data analysis",
+      "Scientific methodology"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "22",
+    "group_title": "Health Professionals",
+    "education_proxy": "MBBS/BDS/BAMS/BHMS or equivalent professional degree; postgraduate specialization common",
+    "training_context": "Internship and residency (1-3 years); continuing medical education; professional registration with Medical Council of India",
+    "key_competencies": [
+      "Clinical diagnosis",
+      "Patient care",
+      "Medical procedures",
+      "Health counselling",
+      "Emergency response"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "23",
+    "group_title": "Teaching Professionals",
+    "education_proxy": "Bachelor's degree + B.Ed; Master's/PhD for higher education",
+    "training_context": "Teacher training certification (B.Ed/D.El.Ed); CTET/state TET qualification; pedagogy workshops",
+    "key_competencies": [
+      "Curriculum design",
+      "Classroom management",
+      "Student assessment",
+      "Pedagogical skills",
+      "Subject expertise"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "24",
+    "group_title": "Business and Administration Professionals",
+    "education_proxy": "Bachelor's or Master's degree in commerce/business (B.Com/MBA/CA/CS)",
+    "training_context": "Professional certification (CA, CS, CMA, CFA); articleship; continuing professional development",
+    "key_competencies": [
+      "Financial analysis",
+      "Accounting",
+      "Business consulting",
+      "Regulatory compliance",
+      "Strategic planning"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "25",
+    "group_title": "Information and Communications Technology Professionals",
+    "education_proxy": "Bachelor's in computer science/IT (B.Tech/BCA/MCA)",
+    "training_context": "Technology certifications (AWS, Azure, Cisco); coding bootcamps; agile/DevOps training; continuous learning",
+    "key_competencies": [
+      "Software development",
+      "System design",
+      "Database management",
+      "Cybersecurity",
+      "Cloud computing"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "26",
+    "group_title": "Legal, Social and Cultural Professionals",
+    "education_proxy": "Bachelor's or Master's degree (LLB, MA, MSW); professional registration",
+    "training_context": "Bar council enrollment (law); field practicum (social work); creative portfolio development",
+    "key_competencies": [
+      "Legal analysis",
+      "Social research",
+      "Creative expression",
+      "Advocacy",
+      "Cultural literacy"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "31",
+    "group_title": "Science and Engineering Associate Professionals",
+    "education_proxy": "Diploma in engineering/technology (polytechnic); some hold B.Tech",
+    "training_context": "Industrial training; apprenticeship programs; sector skill council certifications",
+    "key_competencies": [
+      "Technical drawing",
+      "Equipment operation",
+      "Quality testing",
+      "Fieldwork",
+      "Technical troubleshooting"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "32",
+    "group_title": "Health Associate Professionals",
+    "education_proxy": "Diploma or bachelor's in nursing/pharmacy/allied health (GNM/B.Sc Nursing/D.Pharm)",
+    "training_context": "Clinical training; state nursing/pharmacy council registration; continuing education",
+    "key_competencies": [
+      "Patient care",
+      "Medication administration",
+      "Diagnostic procedures",
+      "Health education",
+      "Record keeping"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "33",
+    "group_title": "Business and Administration Associate Professionals",
+    "education_proxy": "Bachelor's degree or diploma in commerce/business",
+    "training_context": "On-the-job training; short-term professional courses; banking/insurance certifications",
+    "key_competencies": [
+      "Data entry and processing",
+      "Customer relations",
+      "Bookkeeping",
+      "Sales support",
+      "Administrative coordination"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "34",
+    "group_title": "Legal, Social, Cultural and Related Associate Professionals",
+    "education_proxy": "Diploma or bachelor's degree in relevant field",
+    "training_context": "Fieldwork training; community engagement programs; media production training",
+    "key_competencies": [
+      "Community mobilization",
+      "Documentation",
+      "Event coordination",
+      "Media production",
+      "Counselling"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "35",
+    "group_title": "Information and Communications Technicians",
+    "education_proxy": "Diploma in IT/electronics; ITI certificate; BCA",
+    "training_context": "Hardware/networking certifications; vendor-specific training (Microsoft, Cisco); apprenticeships",
+    "key_competencies": [
+      "Network setup",
+      "Hardware maintenance",
+      "User support",
+      "System administration",
+      "Troubleshooting"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "41",
+    "group_title": "General and Keyboard Clerks",
+    "education_proxy": "Higher secondary (12th pass); typing/computer certificate",
+    "training_context": "Basic computer training; typing proficiency; office procedures training",
+    "key_competencies": [
+      "Data entry",
+      "Filing and documentation",
+      "Word processing",
+      "Office administration",
+      "Record maintenance"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "42",
+    "group_title": "Customer Services Clerks",
+    "education_proxy": "Higher secondary or bachelor's degree",
+    "training_context": "Customer service training; communication skills; product knowledge training",
+    "key_competencies": [
+      "Customer interaction",
+      "Information provision",
+      "Complaint handling",
+      "Cash handling",
+      "Telephone etiquette"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "43",
+    "group_title": "Numerical and Material Recording Clerks",
+    "education_proxy": "Higher secondary with commerce; diploma in accounting",
+    "training_context": "Accounting software training (Tally); inventory management systems; basic bookkeeping courses",
+    "key_competencies": [
+      "Accounting",
+      "Inventory tracking",
+      "Data recording",
+      "Statistical compilation",
+      "Financial documentation"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "44",
+    "group_title": "Other Clerical Support Workers",
+    "education_proxy": "Higher secondary (12th pass); basic computer literacy",
+    "training_context": "On-the-job training; office skills programs; postal/sorting procedures",
+    "key_competencies": [
+      "Mail handling",
+      "Coding and sorting",
+      "Proofreading",
+      "Library management",
+      "Administrative support"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "51",
+    "group_title": "Personal Service Workers",
+    "education_proxy": "Secondary (10th pass) to higher secondary; vocational certificates",
+    "training_context": "Vocational training in hospitality/beauty/wellness; short-term skill courses; NSDC certifications",
+    "key_competencies": [
+      "Personal grooming services",
+      "Food service",
+      "Travel assistance",
+      "Housekeeping",
+      "Customer care"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "52",
+    "group_title": "Sales Workers",
+    "education_proxy": "Secondary to higher secondary; often informal training",
+    "training_context": "Product knowledge training; sales techniques; shop floor experience; some have retail management diplomas",
+    "key_competencies": [
+      "Salesmanship",
+      "Product display",
+      "Customer persuasion",
+      "Cash handling",
+      "Inventory awareness"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "53",
+    "group_title": "Personal Care Workers",
+    "education_proxy": "Secondary education; short-term care training",
+    "training_context": "Healthcare assistant training; childcare/eldercare certifications; first aid training",
+    "key_competencies": [
+      "Patient assistance",
+      "Child care",
+      "Elder care",
+      "Health monitoring",
+      "Empathy and communication"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "54",
+    "group_title": "Protective Services Workers",
+    "education_proxy": "Secondary to higher secondary; police/military training",
+    "training_context": "Police academy training; fire service training; private security certification (PSARA); physical fitness",
+    "key_competencies": [
+      "Law enforcement",
+      "Crowd management",
+      "Emergency response",
+      "Physical fitness",
+      "Surveillance"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "61",
+    "group_title": "Market-oriented Skilled Agricultural Workers",
+    "education_proxy": "Primary to secondary education; agricultural extension training",
+    "training_context": "Krishi Vigyan Kendra (KVK) training; state agricultural university extension; practical farming experience",
+    "key_competencies": [
+      "Crop cultivation",
+      "Soil management",
+      "Irrigation",
+      "Pest control",
+      "Harvest and storage"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "62",
+    "group_title": "Market-oriented Skilled Forestry, Fishery and Hunting Workers",
+    "education_proxy": "Primary to secondary education; some vocational training",
+    "training_context": "Fishery training institutes; forestry extension programs; traditional knowledge transfer",
+    "key_competencies": [
+      "Fish cultivation",
+      "Forest produce collection",
+      "Animal husbandry",
+      "Sustainable harvesting",
+      "Equipment maintenance"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "63",
+    "group_title": "Subsistence Farmers, Fishers, Hunters and Gatherers",
+    "education_proxy": "Primary education or below; informal/traditional learning",
+    "training_context": "Intergenerational knowledge transfer; minimal formal training; some government scheme participation",
+    "key_competencies": [
+      "Traditional farming",
+      "Foraging",
+      "Basic animal rearing",
+      "Weather reading",
+      "Self-sufficiency"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "71",
+    "group_title": "Building and Related Trades Workers (excluding Electricians)",
+    "education_proxy": "Primary to secondary education; ITI certificate in some cases",
+    "training_context": "Apprenticeship under master craftsmen; PMKVY construction sector courses; on-site training",
+    "key_competencies": [
+      "Masonry",
+      "Carpentry",
+      "Plumbing",
+      "Painting",
+      "Blueprint reading"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "72",
+    "group_title": "Metal, Machinery and Related Trades Workers",
+    "education_proxy": "ITI/ITC certificate; secondary education",
+    "training_context": "ITI courses (fitter, turner, welder, machinist); apprenticeship under Apprentices Act; NSDC certifications",
+    "key_competencies": [
+      "Welding",
+      "Machining",
+      "Sheet metal work",
+      "Tool maintenance",
+      "Quality inspection"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "73",
+    "group_title": "Handicraft and Printing Workers",
+    "education_proxy": "Primary to secondary; traditional craft training",
+    "training_context": "Master craftsperson training; DC Handicrafts programs; printing technology diplomas",
+    "key_competencies": [
+      "Artisan craftsmanship",
+      "Pattern making",
+      "Printing operations",
+      "Material selection",
+      "Design execution"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "74",
+    "group_title": "Electrical and Electronic Trades Workers",
+    "education_proxy": "ITI certificate in electrician/electronics; diploma",
+    "training_context": "ITI electrician course (2 years); apprenticeship; wireman licensing; safety training",
+    "key_competencies": [
+      "Electrical installation",
+      "Circuit repair",
+      "Electronics troubleshooting",
+      "Safety protocols",
+      "Equipment testing"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "75",
+    "group_title": "Food Processing, Wood Working, Garment and Other Craft Workers",
+    "education_proxy": "Primary to secondary; vocational training",
+    "training_context": "Food technology diplomas; tailoring/garment courses; NSDC sector skill council training",
+    "key_competencies": [
+      "Food preparation",
+      "Garment construction",
+      "Wood crafting",
+      "Quality control",
+      "Machine operation"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "81",
+    "group_title": "Stationary Plant and Machine Operators",
+    "education_proxy": "Secondary education; ITI in relevant trade",
+    "training_context": "Machine-specific operator training; boiler attendant certification; industrial safety courses",
+    "key_competencies": [
+      "Machine operation",
+      "Process monitoring",
+      "Basic maintenance",
+      "Safety compliance",
+      "Production logging"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "82",
+    "group_title": "Assemblers",
+    "education_proxy": "Secondary education; some ITI training",
+    "training_context": "Assembly line training; quality control procedures; lean manufacturing basics",
+    "key_competencies": [
+      "Component assembly",
+      "Quality checking",
+      "Manual dexterity",
+      "Production tracking",
+      "Team coordination"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "83",
+    "group_title": "Drivers and Mobile Plant Operators",
+    "education_proxy": "Primary to secondary education; valid driving license",
+    "training_context": "Driving school certification; heavy vehicle license training; transport authority permit",
+    "key_competencies": [
+      "Vehicle operation",
+      "Route navigation",
+      "Vehicle maintenance",
+      "Traffic law compliance",
+      "Cargo handling"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "91",
+    "group_title": "Cleaners and Helpers",
+    "education_proxy": "Primary education or below; minimal formal requirements",
+    "training_context": "On-the-job training; basic sanitation/hygiene courses; some municipal training",
+    "key_competencies": [
+      "Cleaning procedures",
+      "Waste management",
+      "Sanitation",
+      "Equipment use",
+      "Physical stamina"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "92",
+    "group_title": "Agricultural, Forestry and Fishery Labourers",
+    "education_proxy": "Primary education or below",
+    "training_context": "Informal on-farm training; seasonal agricultural labour; MGNREGA skilling",
+    "key_competencies": [
+      "Manual harvesting",
+      "Field preparation",
+      "Carrying and loading",
+      "Basic tool use",
+      "Physical endurance"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "93",
+    "group_title": "Labourers in Mining, Construction, Manufacturing and Transport",
+    "education_proxy": "Primary education or below",
+    "training_context": "On-site safety induction; manual labour experience; no formal certification typically required",
+    "key_competencies": [
+      "Heavy lifting",
+      "Construction assistance",
+      "Material transport",
+      "Basic tool operation",
+      "Safety awareness"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "94",
+    "group_title": "Food Preparation Assistants",
+    "education_proxy": "Primary to secondary education",
+    "training_context": "On-the-job kitchen training; basic food safety/hygiene; FSSAI awareness",
+    "key_competencies": [
+      "Food preparation assistance",
+      "Kitchen cleaning",
+      "Ingredient sorting",
+      "Basic cooking",
+      "Hygiene maintenance"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "95",
+    "group_title": "Street and Related Sales and Service Workers",
+    "education_proxy": "Primary education or below; minimal formal requirements",
+    "training_context": "Self-taught or family-taught; informal apprenticeship; micro-enterprise experience",
+    "key_competencies": [
+      "Street vending",
+      "Customer interaction",
+      "Cash management",
+      "Product sourcing",
+      "Weather resilience"
+    ],
+    "source": "fallback_embedded"
+  },
+  {
+    "nco_2digit": "96",
+    "group_title": "Refuse Workers and Other Elementary Workers",
+    "education_proxy": "Primary education or below",
+    "training_context": "Municipal training where applicable; waste segregation awareness; minimal formal training",
+    "key_competencies": [
+      "Waste collection",
+      "Sorting and segregation",
+      "Physical labour",
+      "Basic sanitation",
+      "Route adherence"
+    ],
+    "source": "fallback_embedded"
+  }
+]
