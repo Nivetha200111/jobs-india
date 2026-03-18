@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology | Indian Job Market Explorer</title>
+<meta name="description" content="Source notes, caveats, and field definitions for the Indian Job Market Explorer.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, #f8faf8 0%, #f3f2ea 100%);
+  color: #1a1a2e;
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2d6a4f;
+  font-weight: 700;
+}
+
+h1, h2 {
+  line-height: 1.2;
+  margin: 0 0 16px;
+}
+
+h1 {
+  font-size: 38px;
+  margin-top: 8px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-top: 36px;
+}
+
+p, li {
+  font-size: 16px;
+  color: #384052;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+.lede {
+  max-width: 760px;
+  font-size: 18px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(45, 106, 79, 0.14);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(26, 26, 46, 0.06);
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.note {
+  margin-top: 28px;
+  padding: 16px 18px;
+  border-left: 4px solid #d97706;
+  background: rgba(255, 250, 235, 0.95);
+  border-radius: 12px;
+}
+
+a {
+  color: #1b4332;
+}
+
+.top-links,
+.footer-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #1b4332;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chip.secondary {
+  background: #e9f2ec;
+  color: #1b4332;
+}
+</style>
+</head>
+<body>
+  <main class="page">
+    <div class="eyebrow">Methodology</div>
+    <h1>How this dataset is built</h1>
+    <p class="lede">
+      The Indian Job Market Explorer combines official classification and survey sources with clearly labeled proxy fields.
+      It is a research-grade visualization, not an official forecast or census.
+    </p>
+
+    <div class="top-links">
+      <a class="chip" href="./">Open Explorer</a>
+      <a class="chip secondary" href="https://github.com/Nivetha200111/jobs-india/blob/main/docs/methodology.md">Full Methodology on GitHub</a>
+    </div>
+
+    <h2>Source stack</h2>
+    <div class="card-grid">
+      <section class="card">
+        <h3>NCO 2015</h3>
+        <p>Used for occupation codes, hierarchy, titles, and skill levels. This project aggregates to 43 two-digit occupation groups.</p>
+      </section>
+      <section class="card">
+        <h3>PLFS 2023-24</h3>
+        <p>Used for employment counts and monthly pay figures. The pay values shown in the explorer are PLFS survey averages, not medians.</p>
+      </section>
+      <section class="card">
+        <h3>NCS</h3>
+        <p>Used for demand signals and occupation descriptions where available. Vacancy counts are a portal-derived proxy, not total labour demand.</p>
+      </section>
+      <section class="card">
+        <h3>NSDC</h3>
+        <p>Used to enrich education and training context with qualification-pack style competency metadata.</p>
+      </section>
+    </div>
+
+    <h2>Field notes</h2>
+    <ul>
+      <li><strong>Employment</strong> is a PLFS survey estimate, not an administrative count.</li>
+      <li><strong>Pay</strong> is stored in the dataset as <code>pay_median_monthly</code> for compatibility, but the underlying statistic is a PLFS average monthly earning.</li>
+      <li><strong>Demand Index</strong> comes from NCS vacancy signals and must be read as a directional proxy.</li>
+      <li><strong>AI Exposure</strong> is an LLM-scored estimate calibrated for the Indian labour market, not an official statistic.</li>
+    </ul>
+
+    <div class="note">
+      <strong>Important:</strong> India does not publish a BLS-style occupation forecast. This project does not claim to predict future employment levels.
+    </div>
+
+    <h2>Current production limits</h2>
+    <ul>
+      <li>The published frontend is fully deployable as a static site.</li>
+      <li>The repo includes committed build artifacts, CI validation, and GitHub Pages deployment.</li>
+      <li>Some descriptive fields still fall back to taxonomy text when live NCS scraping data is unavailable.</li>
+    </ul>
+
+    <div class="footer-links">
+      <a href="./">Back to Explorer</a>
+      <a href="https://github.com/Nivetha200111/jobs-india">Repository</a>
+    </div>
+  </main>
+</body>
+</html>

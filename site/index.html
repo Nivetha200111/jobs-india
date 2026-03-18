@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Indian Job Market Explorer</title>
+<meta name="description" content="Interactive explorer of Indian occupations using PLFS, NCO 2015, NCS, and NSDC data.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 *, *::before, *::after {
@@ -422,7 +424,7 @@ html, body {
   <div class="controls">
     <span class="controls-label">Color by:</span>
     <button class="layer-btn active" data-layer="pay">
-      <span class="icon">&#8377;</span> Pay (INR)
+      <span class="icon">&#8377;</span> Pay (PLFS Avg)
     </button>
     <button class="layer-btn" data-layer="skill">
       <span class="icon">&#9733;</span> Skill Level
@@ -449,7 +451,7 @@ html, body {
   <!-- Footer -->
   <div class="footer">
     <span>Sources: PLFS 2023-24, NCS Portal, NCO-2015 classification &bull; Inspired by <a href="https://karpathy.ai/jobs" target="_blank" rel="noopener">karpathy.ai/jobs</a></span>
-    <span><a href="#methodology" onclick="alert('Methodology: Employment counts from PLFS 2023-24 survey estimates. Pay medians from PLFS earnings module. Demand index derived from NCS portal vacancy counts (proxy). AI exposure scored via LLM assessment on a 0-10 scale. All figures are estimates and should be used for exploratory purposes only.'); return false;">Methodology</a></span>
+    <span><a href="methodology.html">Methodology</a></span>
   </div>
 </div>
 
@@ -542,7 +544,7 @@ html, body {
     buildTreemap();
     renderLegend();
   }).catch(function(err) {
-    loadingEl.innerHTML = '<div class="error-msg"><h3>Failed to load data</h3><p>Could not load data-india.json. Make sure the file is in the same directory.</p><p style="font-size:11px;color:#888;margin-top:8px;">' + err + '</p></div>';
+    loadingEl.innerHTML = '<div class="error-msg"><h3>Failed to load data</h3><p>Could not load data-india.json. Serve this folder over HTTP so the browser can fetch the data file.</p><p style="font-size:11px;color:#888;margin-top:8px;">' + err + '</p></div>';
   });
 
   // ─── Build hierarchy ───
@@ -688,7 +690,7 @@ html, body {
     html += '<div class="tooltip-code">NCO ' + (d.occupation_code || "N/A") + ' &bull; ' + (d.occupation_group || "") + '</div>';
 
     html += '<div class="tooltip-row"><span class="tooltip-label">Employment</span><span class="tooltip-val">' + formatIndianNumber(d.employment_count) + ' (' + formatLakhCrore(d.employment_count) + ')</span></div>';
-    html += '<div class="tooltip-row"><span class="tooltip-label">Monthly Pay (median)</span><span class="tooltip-val">' + formatCurrency(d.pay_median_monthly) + '</span></div>';
+    html += '<div class="tooltip-row"><span class="tooltip-label">Monthly Pay (PLFS avg)</span><span class="tooltip-val">' + formatCurrency(d.pay_median_monthly) + '</span></div>';
     html += '<div class="tooltip-row"><span class="tooltip-label">Skill Level</span><span class="tooltip-val">' + (d.skill_level != null ? d.skill_level + ' \u2013 ' + skillLabel(d.skill_level) : 'N/A') + '</span></div>';
     html += '<div class="tooltip-row"><span class="tooltip-label">Demand Index</span><span class="tooltip-val">' + (d.demand_index != null ? d.demand_index + '/1000' : 'N/A') + ' <span style="font-weight:400;color:#999;font-size:10px;">(portal-derived proxy)</span></span></div>';
     html += '<div class="tooltip-row"><span class="tooltip-label">AI Exposure</span><span class="tooltip-val">' + (d.ai_exposure != null ? d.ai_exposure + '/10' : 'N/A') + '</span></div>';
@@ -736,7 +738,7 @@ html, body {
     var html = "";
 
     if (currentLayer === "pay") {
-      html += '<div class="legend-title">Pay (Monthly Median)</div>';
+      html += '<div class="legend-title">Pay (Monthly Average)</div>';
       html += '<canvas id="legend-bar" width="220" height="14" class="legend-bar"></canvas>';
       html += '<div class="legend-labels"><span>\u20B95,000</span><span>\u20B925,000</span><span>\u20B980,000</span></div>';
     } else if (currentLayer === "skill") {
@@ -759,7 +761,7 @@ html, body {
 
     html += '<div class="legend-source">';
     html += 'Employment: PLFS 2023-24<br>';
-    html += 'Pay: PLFS survey-based<br>';
+    html += 'Pay: PLFS survey average<br>';
     html += 'Demand: NCS portal-derived proxy<br>';
     html += 'AI Exposure: LLM-scored estimate';
     html += '</div>';

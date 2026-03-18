@@ -10,7 +10,9 @@ The project is honest about its limitations. Where data is unavailable or approx
 
 ## Demo
 
-> Screenshot or live demo link to be added after deployment.
+- Static app: `site/index.html`
+- Methodology page: `site/methodology.html`
+- GitHub Pages deployment: configured via `.github/workflows/deploy.yml`
 
 ## Data sources
 
@@ -46,11 +48,18 @@ python scripts/merge_occupations.py    # Merge all sources into unified dataset
 python scripts/score.py                # LLM-score AI exposure (requires OPENROUTER_API_KEY in .env)
 python scripts/build_site_data.py      # Build compact frontend dataset
 
-# View the visualization
-# Open site/index.html in a browser
+# Validate the checked-in production artifacts
+python scripts/validate_outputs.py
+python -m unittest discover -s tests -v
+
+# View the visualization over HTTP
+python3 -m http.server 4173 -d site
+# then open http://127.0.0.1:4173
 ```
 
-Each script is incremental: it skips work if output files already exist. Use `--force` to regenerate.
+Each script is incremental: it skips work if output files already exist. `merge_occupations.py` and `build_site_data.py` support `--force` to regenerate.
+
+Do not open `site/index.html` directly over `file://`. The frontend fetches `data-india.json`, so it should be served over HTTP even in local development.
 
 ## Project structure
 
@@ -95,6 +104,24 @@ The full methodology document is at [docs/methodology.md](docs/methodology.md). 
 - Date mismatches between sources (NCO 2015 taxonomy, PLFS 2023--24 data, NCS/NSDC retrieved 2026)
 - What the dataset does not claim
 - How to update when new data is published
+
+The deployed static site also includes a reader-friendly methodology page at `site/methodology.html`.
+
+## Production readiness
+
+This repository includes the baseline pieces expected for a production static-data project:
+
+- A committed build artifact for the deployable site in `site/`
+- A repository validator at `scripts/validate_outputs.py`
+- Unit tests in `tests/`
+- CI in `.github/workflows/ci.yml`
+- GitHub Pages deployment in `.github/workflows/deploy.yml`
+
+What is still operationally dependent on external setup:
+
+- Fresh AI scoring requires `OPENROUTER_API_KEY`
+- Live NCS/NSDC scraping requires optional Python dependencies and network access
+- Production monitoring/analytics are not configured in the static frontend
 
 ## Key differences from the US version
 
