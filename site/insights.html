@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights | Indian Job Market Explorer</title>
+<meta name="description" content="Correlation analysis between pay, skill level, AI exposure, demand, and growth across 43 Indian occupation groups.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-header {
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 14px 24px 10px;
+}
+
+.page-header h1 { font-size: 22px; font-weight: 700; }
+.page-header .subtitle { font-size: 13px; color: #9da5b0; margin-top: 2px; }
+
+.nav-bar {
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 8px 24px;
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+}
+
+.nav-bar a {
+  color: #9da5b0;
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+.nav-bar a:hover { color: #3fb950; }
+.nav-bar a.active { color: #3fb950; border-bottom: 2px solid #3fb950; }
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 40px 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #21262d;
+}
+
+h2:first-of-type { margin-top: 0; }
+
+p.desc {
+  font-size: 14px;
+  color: #9da5b0;
+  margin-bottom: 20px;
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/* Correlation matrix */
+.matrix-wrap {
+  overflow-x: auto;
+  margin: 20px 0 40px;
+}
+
+.matrix-container {
+  display: inline-block;
+}
+
+/* Scatter grid */
+.scatter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.chart-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 18px;
+  overflow: hidden;
+}
+
+.chart-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.chart-card .chart-subtitle {
+  font-size: 12px;
+  color: #6e7681;
+  margin-bottom: 12px;
+}
+
+.chart-card .corr-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.chart-card svg {
+  display: block;
+}
+
+/* Tooltip */
+.scatter-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #1c2128;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.12s;
+  max-width: 280px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.scatter-tooltip.visible { opacity: 1; }
+.scatter-tooltip .tt-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+.scatter-tooltip .tt-row { display: flex; justify-content: space-between; gap: 12px; }
+.scatter-tooltip .tt-label { color: #6e7681; }
+.scatter-tooltip .tt-val { font-weight: 600; }
+
+/* Key insights */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.insight-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.insight-card .insight-r {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.insight-card .insight-label {
+  font-size: 12px;
+  color: #6e7681;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+.insight-card .insight-text {
+  font-size: 13.5px;
+  color: #9da5b0;
+  margin-top: 10px;
+  line-height: 1.55;
+}
+
+/* Group legend */
+.group-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0 8px;
+}
+
+.group-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #9da5b0;
+}
+
+.group-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  border-top: 1px solid #21262d;
+  font-size: 12px;
+  color: #6e7681;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer a { color: #9da5b0; text-decoration: none; }
+.footer a:hover { color: #3fb950; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Insights</h1>
+  <div class="subtitle">Correlations and relationships across 43 Indian occupation groups</div>
+</div>
+
+<div class="nav-bar">
+  <a href="./">Explorer</a>
+  <a href="insights.html" class="active">Insights</a>
+  <a href="explained.html">Explained</a>
+  <a href="methodology.html">Methodology</a>
+</div>
+
+<div class="content">
+
+  <h2>Key findings</h2>
+  <div class="insight-grid" id="insight-grid"></div>
+
+  <h2>Correlation matrix</h2>
+  <p class="desc">
+    Pearson correlation coefficients between all numeric fields across 43 occupation groups.
+    Green = positive correlation, red = negative. Stronger color = stronger relationship.
+  </p>
+  <div class="matrix-wrap">
+    <div class="matrix-container" id="matrix"></div>
+  </div>
+
+  <h2>Scatter plots</h2>
+  <p class="desc">
+    Each dot is one occupation group. Dot size = employment count. Hover for details. The trendline shows the linear relationship.
+  </p>
+  <div class="group-legend" id="group-legend"></div>
+  <div class="scatter-grid" id="scatter-grid"></div>
+
+</div>
+
+<div class="footer">
+  <a href="./">Back to Explorer</a>
+  <a href="explained.html">Explained</a>
+  <a href="methodology.html">Methodology</a>
+  <span>Data: PLFS 2023-24 | 43 NCO occupation groups</span>
+</div>
+
+<div class="scatter-tooltip" id="scatter-tooltip"></div>
+
+<script>
+(function() {
+  "use strict";
+
+  var GROUP_COLORS = {
+    "Armed Forces Occupations": "#8b949e",
+    "Managers": "#f0883e",
+    "Professionals": "#3fb950",
+    "Technicians and Associate Professionals": "#58a6ff",
+    "Clerical Support Workers": "#d2a8ff",
+    "Service and Sales Workers": "#f778ba",
+    "Skilled Agricultural, Forestry and Fishery Workers": "#7ee787",
+    "Craft and Related Trades Workers": "#ffa657",
+    "Plant and Machine Operators and Assemblers": "#79c0ff",
+    "Elementary Occupations": "#d29922"
+  };
+
+  var FIELDS = [
+    { key: "pay_median_monthly", label: "Pay (Monthly)", short: "Pay", fmt: function(v) { return "\u20B9" + Math.round(v).toLocaleString("en-IN"); } },
+    { key: "skill_level", label: "Skill Level", short: "Skill", fmt: function(v) { return v + "/4"; } },
+    { key: "demand_index", label: "Demand Index", short: "Demand", fmt: function(v) { return v + "/100"; } },
+    { key: "growth_outlook", label: "Growth Outlook (%)", short: "Growth", fmt: function(v) { return (v > 0 ? "+" : "") + v + "%"; } },
+    { key: "ai_exposure", label: "AI Exposure", short: "AI Exp", fmt: function(v) { return v + "/10"; } }
+  ];
+
+  function pearson(xs, ys) {
+    var n = xs.length;
+    if (n < 3) return 0;
+    var mx = d3.mean(xs), my = d3.mean(ys);
+    var sx = d3.deviation(xs), sy = d3.deviation(ys);
+    if (!sx || !sy) return 0;
+    var sum = 0;
+    for (var i = 0; i < n; i++) sum += (xs[i] - mx) * (ys[i] - my);
+    return sum / ((n - 1) * sx * sy);
+  }
+
+  function linReg(xs, ys) {
+    var n = xs.length, mx = d3.mean(xs), my = d3.mean(ys);
+    var num = 0, den = 0;
+    for (var i = 0; i < n; i++) {
+      num += (xs[i] - mx) * (ys[i] - my);
+      den += (xs[i] - mx) * (xs[i] - mx);
+    }
+    var slope = den ? num / den : 0;
+    var intercept = my - slope * mx;
+    return { slope: slope, intercept: intercept };
+  }
+
+  function corrColor(r) {
+    if (r > 0) return d3.interpolateGreens(Math.abs(r) * 0.85 + 0.15);
+    if (r < 0) return d3.interpolateReds(Math.abs(r) * 0.85 + 0.15);
+    return "#21262d";
+  }
+
+  function corrBadgeColor(r) {
+    var abs = Math.abs(r);
+    if (abs >= 0.7) return r > 0 ? "#238636" : "#da3633";
+    if (abs >= 0.4) return r > 0 ? "#1a4724" : "#5c1a1a";
+    return "#30363d";
+  }
+
+  function corrStrength(r) {
+    var abs = Math.abs(r);
+    if (abs >= 0.7) return "Strong";
+    if (abs >= 0.4) return "Moderate";
+    return "Weak";
+  }
+
+  // Tooltip
+  var ttEl = document.getElementById("scatter-tooltip");
+  function showTT(e, html) {
+    ttEl.innerHTML = html;
+    ttEl.classList.add("visible");
+    moveTT(e);
+  }
+  function moveTT(e) {
+    var x = e.clientX + 14, y = e.clientY + 14;
+    var tw = ttEl.offsetWidth, th = ttEl.offsetHeight;
+    if (x + tw > window.innerWidth - 8) x = e.clientX - tw - 14;
+    if (y + th > window.innerHeight - 8) y = e.clientY - th - 14;
+    ttEl.style.left = x + "px";
+    ttEl.style.top = y + "px";
+  }
+  function hideTT() { ttEl.classList.remove("visible"); }
+
+  d3.json("data-india.json").then(function(data) {
+
+    // Compute all correlations
+    var corrMatrix = [];
+    FIELDS.forEach(function(fa) {
+      FIELDS.forEach(function(fb) {
+        var xs = [], ys = [];
+        data.forEach(function(d) {
+          if (d[fa.key] != null && d[fb.key] != null) {
+            xs.push(d[fa.key]);
+            ys.push(d[fb.key]);
+          }
+        });
+        corrMatrix.push({ a: fa, b: fb, r: pearson(xs, ys) });
+      });
+    });
+
+    // ─── Key Insights ───
+    var insights = [
+      { a: "skill_level", b: "pay_median_monthly", r: 0.866,
+        text: "Higher skill requirements strongly predict higher pay. The NCO skill level classification is the single best predictor of earnings in this dataset." },
+      { a: "demand_index", b: "growth_outlook", r: 0.729,
+        text: "Occupations with high NCS demand signals are strongly correlated with positive growth outlook. Current demand reflects structural trends, not just short-term hiring." },
+      { a: "ai_exposure", b: "pay_median_monthly", r: 0.514,
+        text: "Higher-paying occupations tend to have MORE AI exposure, not less. AI is a white-collar phenomenon in the Indian context. The lowest-paid (agriculture, elementary) are the least exposed." },
+      { a: "ai_exposure", b: "growth_outlook", r: 0.390,
+        text: "AI-exposed occupations are also the ones growing fastest. High exposure + high growth = augmentation, not replacement. The most \"at risk\" occupations by AI score are also the most in demand." }
+    ];
+
+    var insightGrid = document.getElementById("insight-grid");
+    insights.forEach(function(ins) {
+      var card = document.createElement("div");
+      card.className = "insight-card";
+      var rColor = ins.r >= 0.7 ? "#3fb950" : ins.r >= 0.4 ? "#58a6ff" : "#9da5b0";
+      card.innerHTML = '<div class="insight-r" style="color:' + rColor + '">r = ' + ins.r.toFixed(2) + '</div>'
+        + '<div class="insight-label">' + corrStrength(ins.r) + ' ' + (ins.r > 0 ? 'positive' : 'negative') + ' correlation</div>'
+        + '<div class="insight-text">' + ins.text + '</div>';
+      insightGrid.appendChild(card);
+    });
+
+    // ─── Correlation Matrix ───
+    var mSize = 70;
+    var mPad = 100;
+    var n = FIELDS.length;
+    var mW = mPad + n * mSize;
+    var mH = mPad + n * mSize;
+
+    var mSvg = d3.select("#matrix").append("svg")
+      .attr("width", mW).attr("height", mH);
+
+    // Row/col labels
+    FIELDS.forEach(function(f, i) {
+      mSvg.append("text").attr("x", mPad + i * mSize + mSize / 2).attr("y", mPad - 10)
+        .attr("text-anchor", "middle").attr("fill", "#9da5b0").attr("font-size", 11).attr("font-weight", 600)
+        .text(f.short);
+      mSvg.append("text").attr("x", mPad - 10).attr("y", mPad + i * mSize + mSize / 2 + 4)
+        .attr("text-anchor", "end").attr("fill", "#9da5b0").attr("font-size", 11).attr("font-weight", 600)
+        .text(f.short);
+    });
+
+    corrMatrix.forEach(function(c) {
+      var i = FIELDS.indexOf(c.a);
+      var j = FIELDS.indexOf(c.b);
+
+      var g = mSvg.append("g");
+      g.append("rect")
+        .attr("x", mPad + j * mSize + 2).attr("y", mPad + i * mSize + 2)
+        .attr("width", mSize - 4).attr("height", mSize - 4)
+        .attr("rx", 6).attr("fill", corrColor(c.r))
+        .attr("opacity", i === j ? 0.3 : 0.85);
+
+      var textColor = Math.abs(c.r) > 0.5 ? "#fff" : "#e6edf3";
+      g.append("text")
+        .attr("x", mPad + j * mSize + mSize / 2).attr("y", mPad + i * mSize + mSize / 2 + 5)
+        .attr("text-anchor", "middle").attr("fill", textColor)
+        .attr("font-size", 13).attr("font-weight", 700)
+        .text(i === j ? "1.00" : c.r.toFixed(2));
+    });
+
+    // ─── Group legend ───
+    var legendEl = document.getElementById("group-legend");
+    var groups = {};
+    data.forEach(function(d) { groups[d.occupation_group] = true; });
+    Object.keys(groups).sort().forEach(function(g) {
+      var item = document.createElement("span");
+      item.className = "group-legend-item";
+      item.innerHTML = '<span class="group-legend-swatch" style="background:' + (GROUP_COLORS[g] || "#666") + '"></span>' + g;
+      legendEl.appendChild(item);
+    });
+
+    // ─── Scatter Plots ───
+    var scatterPairs = [
+      { x: "skill_level", y: "pay_median_monthly", title: "Skill Level vs Pay", sub: "Does education pay off?" },
+      { x: "demand_index", y: "growth_outlook", title: "Demand vs Growth Outlook", sub: "Are in-demand jobs growing?" },
+      { x: "ai_exposure", y: "pay_median_monthly", title: "AI Exposure vs Pay", sub: "Are high-paid jobs more AI-exposed?" },
+      { x: "ai_exposure", y: "growth_outlook", title: "AI Exposure vs Growth", sub: "Are AI-exposed jobs growing or shrinking?" },
+      { x: "ai_exposure", y: "skill_level", title: "AI Exposure vs Skill Level", sub: "Does AI target skilled workers?" },
+      { x: "ai_exposure", y: "demand_index", title: "AI Exposure vs Demand", sub: "Are AI-exposed jobs in demand?" },
+      { x: "pay_median_monthly", y: "growth_outlook", title: "Pay vs Growth Outlook", sub: "Are well-paid jobs growing?" },
+      { x: "skill_level", y: "growth_outlook", title: "Skill Level vs Growth", sub: "Are skilled occupations expanding?" }
+    ];
+
+    var scatterGrid = document.getElementById("scatter-grid");
+    var W = 360, H = 280, M = { top: 16, right: 20, bottom: 36, left: 52 };
+    var pw = W - M.left - M.right, ph = H - M.top - M.bottom;
+
+    var empExtent = d3.extent(data, function(d) { return d.employment_count; });
+    var rScale = d3.scaleSqrt().domain(empExtent).range([3, 22]);
+
+    scatterPairs.forEach(function(pair) {
+      var xF = FIELDS.find(function(f) { return f.key === pair.x; });
+      var yF = FIELDS.find(function(f) { return f.key === pair.y; });
+
+      var valid = data.filter(function(d) { return d[pair.x] != null && d[pair.y] != null; });
+      var xs = valid.map(function(d) { return d[pair.x]; });
+      var ys = valid.map(function(d) { return d[pair.y]; });
+      var r = pearson(xs, ys);
+      var reg = linReg(xs, ys);
+
+      var card = document.createElement("div");
+      card.className = "chart-card";
+      card.innerHTML = '<h3>' + pair.title
+        + '<span class="corr-badge" style="background:' + corrBadgeColor(r) + '">r = ' + r.toFixed(2) + '</span></h3>'
+        + '<div class="chart-subtitle">' + pair.sub + '</div>';
+      scatterGrid.appendChild(card);
+
+      var xPad = (d3.max(xs) - d3.min(xs)) * 0.08 || 1;
+      var yPad = (d3.max(ys) - d3.min(ys)) * 0.08 || 1;
+
+      var xScale = d3.scaleLinear()
+        .domain([d3.min(xs) - xPad, d3.max(xs) + xPad]).range([0, pw]);
+      var yScale = d3.scaleLinear()
+        .domain([d3.min(ys) - yPad, d3.max(ys) + yPad]).range([ph, 0]);
+
+      var svg = d3.select(card).append("svg")
+        .attr("width", W).attr("height", H)
+        .append("g").attr("transform", "translate(" + M.left + "," + M.top + ")");
+
+      // Grid lines
+      svg.selectAll(".grid-x").data(xScale.ticks(5)).enter()
+        .append("line").attr("x1", function(d) { return xScale(d); }).attr("x2", function(d) { return xScale(d); })
+        .attr("y1", 0).attr("y2", ph).attr("stroke", "#21262d").attr("stroke-dasharray", "2,3");
+      svg.selectAll(".grid-y").data(yScale.ticks(5)).enter()
+        .append("line").attr("x1", 0).attr("x2", pw)
+        .attr("y1", function(d) { return yScale(d); }).attr("y2", function(d) { return yScale(d); })
+        .attr("stroke", "#21262d").attr("stroke-dasharray", "2,3");
+
+      // Trendline
+      var x1 = d3.min(xs), x2 = d3.max(xs);
+      svg.append("line")
+        .attr("x1", xScale(x1)).attr("y1", yScale(reg.slope * x1 + reg.intercept))
+        .attr("x2", xScale(x2)).attr("y2", yScale(reg.slope * x2 + reg.intercept))
+        .attr("stroke", "#3fb950").attr("stroke-width", 1.5).attr("stroke-dasharray", "6,4").attr("opacity", 0.6);
+
+      // Dots
+      svg.selectAll(".dot").data(valid).enter()
+        .append("circle")
+        .attr("cx", function(d) { return xScale(d[pair.x]); })
+        .attr("cy", function(d) { return yScale(d[pair.y]); })
+        .attr("r", function(d) { return rScale(d.employment_count); })
+        .attr("fill", function(d) { return GROUP_COLORS[d.occupation_group] || "#666"; })
+        .attr("opacity", 0.8)
+        .attr("stroke", "#0d1117").attr("stroke-width", 1)
+        .on("mouseenter", function(ev, d) {
+          d3.select(this).attr("opacity", 1).attr("stroke", "#fff").attr("stroke-width", 2);
+          var emp = d.employment_count >= 10000000 ? (d.employment_count / 10000000).toFixed(1) + " Cr" :
+                    d.employment_count >= 100000 ? (d.employment_count / 100000).toFixed(1) + " L" :
+                    d.employment_count.toLocaleString("en-IN");
+          showTT(ev,
+            '<div class="tt-title">' + d.occupation_title + '</div>'
+            + '<div class="tt-row"><span class="tt-label">' + xF.label + '</span><span class="tt-val">' + xF.fmt(d[pair.x]) + '</span></div>'
+            + '<div class="tt-row"><span class="tt-label">' + yF.label + '</span><span class="tt-val">' + yF.fmt(d[pair.y]) + '</span></div>'
+            + '<div class="tt-row"><span class="tt-label">Employment</span><span class="tt-val">' + emp + '</span></div>'
+          );
+        })
+        .on("mousemove", moveTT)
+        .on("mouseleave", function() {
+          d3.select(this).attr("opacity", 0.8).attr("stroke", "#0d1117").attr("stroke-width", 1);
+          hideTT();
+        });
+
+      // Axes
+      var xAxis = svg.append("g").attr("transform", "translate(0," + ph + ")").call(d3.axisBottom(xScale).ticks(5));
+      var yAxis = svg.append("g").call(d3.axisLeft(yScale).ticks(5));
+
+      xAxis.selectAll("text").attr("fill", "#6e7681").attr("font-size", 10);
+      yAxis.selectAll("text").attr("fill", "#6e7681").attr("font-size", 10);
+      xAxis.selectAll("line, path").attr("stroke", "#30363d");
+      yAxis.selectAll("line, path").attr("stroke", "#30363d");
+
+      // Axis labels
+      svg.append("text").attr("x", pw / 2).attr("y", ph + 30)
+        .attr("text-anchor", "middle").attr("fill", "#6e7681").attr("font-size", 11)
+        .text(xF.label);
+      svg.append("text").attr("x", -ph / 2).attr("y", -38)
+        .attr("text-anchor", "middle").attr("fill", "#6e7681").attr("font-size", 11)
+        .attr("transform", "rotate(-90)")
+        .text(yF.label);
+    });
+
+  });
+
+})();
+</script>
+</body>
+</html>

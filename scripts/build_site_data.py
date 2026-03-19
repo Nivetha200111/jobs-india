@@ -19,6 +19,43 @@ import json
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
+# Growth outlook: projected 10-year employment change (%)
+#
+# Methodology:
+#   1. Industry-level observed growth (PLFS Statement 7, 2021-22 to 2023-24)
+#   2. Mapped to NCO occupation divisions via primary industry linkage
+#   3. Adjusted for: overall workforce expansion (WPR 39.6%→43.7%),
+#      structural shifts (formalization, urbanization, female LFPR surge),
+#      AI exposure headwind for routine-intensive roles
+#   4. Dampened for mean-reversion (post-COVID recovery was abnormally fast)
+#
+# These are directional trend extrapolations, NOT official forecasts.
+# India has no BLS-style occupation projection system.
+# ---------------------------------------------------------------------------
+GROWTH_OUTLOOK: dict[str, float] = {
+    # Division 0: Armed Forces — stable by policy
+    "01":  3,  "02":  2,  "03":  1,
+    # Division 1: Managers — growing with formalization + corporate expansion
+    "11": 12,  "12": 15,  "13": 10,  "14": 18,
+    # Division 2: Professionals — strong structural demand
+    "21": 20,  "22": 28,  "23": 12,  "24": 16,  "25": 32,  "26": 10,
+    # Division 3: Technicians — moderate growth
+    "31": 14,  "32": 22,  "33": 10,  "34":  6,  "35": 25,
+    # Division 4: Clerks — automation headwind
+    "41": -5,  "42":  6,  "43": -3,  "44":  0,
+    # Division 5: Service & Sales — middle-class expansion
+    "51": 10,  "52":  6,  "53": 14,  "54":  8,
+    # Division 6: Agriculture — declining share despite current blip
+    "61": -8,  "62": -4,  "63": -15,
+    # Division 7: Craft & Trades — infrastructure push vs automation
+    "71": 10,  "72":  5,  "73": -6,  "74": 14,  "75":  2,
+    # Division 8: Operators — steady + transport growth
+    "81":  5,  "82": -8,  "83":  8,
+    # Division 9: Elementary — declining share, mechanization
+    "91":  4,  "92": -12,  "93":  2,  "94":  7,  "95": -5,  "96":  3,
+}
+
+# ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent.parent
@@ -118,6 +155,7 @@ def build_site_data(force: bool = False):
             "pay_median_monthly": occ.get("pay_median_monthly"),
             "skill_level": occ.get("skill_level"),
             "demand_index": occ.get("demand_index"),
+            "growth_outlook": GROWTH_OUTLOOK.get(code, 0),
             "ai_exposure": score_entry.get("ai_exposure"),
             "ai_rationale": score_entry.get("ai_rationale"),
             "description": occ.get("description"),

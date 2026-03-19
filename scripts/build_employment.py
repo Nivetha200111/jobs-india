@@ -5,13 +5,27 @@ build_employment.py
 Builds the PLFS employment and earnings dataset at the NCO 2-digit level
 and writes it to data/intermediate/plfs_employment.csv.
 
-Embedded seed data is based on approximate distributions from the
-Periodic Labour Force Survey (PLFS) Annual Report July 2023 - June 2024,
-using usual status (ps+ss) workforce estimates for India's ~562 million
-total workforce.
+Data is extracted from the official PLFS Annual Report (July 2023 - June 2024)
+published by NSSO/MoSPI on 23 September 2024.
 
-The script can later be extended to parse published PLFS PDF tables
-directly.
+Employment distribution: Table 25 of the PLFS Annual Report
+    "Percentage distribution of workers in usual status (ps+ss) by
+    occupation group/sub-division/division as per NCO 2015"
+    Rural+Urban, Person column.
+
+Earnings: Table 50 of the PLFS Annual Report
+    "Average wage/salary earnings (Rs.) during the preceding calendar month
+    from regular wage/salaried employment among regular wage salaried
+    employees in CWS by occupation Divisions (1-digit code of NCO-2015)"
+    Rural+Urban, Person column.
+
+Total workforce:
+    WPR (all ages, persons, usual status ps+ss) = 43.7% (Statement 3)
+    India projected population mid-2023-24 ≈ 1,428 million
+    Total workers ≈ 624 million
+
+Armed forces (01, 02, 03) are not covered by PLFS civilian survey.
+Figures from Ministry of Defence annual reports (~1.4M active personnel).
 
 Usage:
     python scripts/build_employment.py          # writes CSV
@@ -39,133 +53,106 @@ SECTOR = "combined"
 EMPLOYMENT_TYPE = "all"
 
 # ---------------------------------------------------------------------------
-# Embedded PLFS 2023-24 employment estimates (approximate)
+# Official PLFS 2023-24 data (July 2023 - June 2024)
 #
-# Total workforce (usual status ps+ss): ~562 million
+# Employment distribution: Table 25, rural+urban, person column
+# Total workforce: WPR 43.7% × 1,428M population = 624M
 #
-# Each tuple: (nco_2digit_code, employment_count, avg_monthly_earnings_inr)
+# Earnings: Table 50, rural+urban, person column
+# (Regular wage/salaried employees only — covers ~21.7% of workforce.
+#  Self-employed avg ~₹13,900/mo, casual labour avg ~₹433/day.)
 #
-# The 1-digit distribution percentages (which sum to ~100%):
-#   MG 0  Armed Forces         ~0.3%  =  ~1.7M
-#   MG 1  Managers              ~3.5%  = ~19.7M
-#   MG 2  Professionals         ~4.5%  = ~25.3M
-#   MG 3  Technicians           ~2.5%  = ~14.1M
-#   MG 4  Clerical              ~2.0%  = ~11.2M
-#   MG 5  Services/Sales       ~12.0%  = ~67.4M
-#   MG 6  Skilled Agriculture  ~23.0%  =~129.3M
-#   MG 7  Craft/Trades         ~12.0%  = ~67.4M
-#   MG 8  Operators             ~7.0%  = ~39.3M
-#   MG 9  Elementary           ~33.0%  =~185.5M
-#                              ------   --------
-#                              ~99.8%   ~560.9M (rounding)
+# Division-level distribution (1-digit, Table 25):
+#   Div 1  Managers           3.16%  →  19.7M   Earnings: ₹42,993
+#   Div 2  Professionals      5.28%  →  33.0M   Earnings: ₹35,776
+#   Div 3  Technicians        2.26%  →  14.1M   Earnings: ₹24,199
+#   Div 4  Clerks             2.11%  →  13.2M   Earnings: ₹23,616
+#   Div 5  Service & Sales   11.54%  →  72.0M   Earnings: ₹14,628
+#   Div 6  Skilled Agri.     37.97%  → 236.9M   Earnings: ₹11,319
+#   Div 7  Craft & Trades    11.09%  →  69.2M   Earnings: ₹15,350
+#   Div 8  Operators          5.32%  →  33.2M   Earnings: ₹15,906
+#   Div 9  Elementary        21.28%  → 132.8M   Earnings: ₹10,667
+#                            ------    ------
+#                           100.01%    624.1M
 # ---------------------------------------------------------------------------
 
+# Total workforce (PLFS 2023-24, usual status ps+ss, all ages)
+TOTAL_WORKFORCE = 624_000_000
+
+# Sub-division percentages from Table 25 (rural+urban, person)
+# and Division-level earnings from Table 50 (rural+urban, person)
+_PLFS_DATA: list[tuple[str, float, int]] = [
+    # (nco_2digit, pct_of_total, division_level_avg_earnings)
+
+    # ── Division 0: Armed Forces (not in PLFS, from MoD data) ────────
+    # ~1.4M active military (defence.gov.in annual reports)
+    ("01",  0.032, 55_000),   # Commissioned Officers ~200K
+    ("02",  0.064, 35_000),   # NCOs ~400K
+    ("03",  0.128, 25_000),   # Other Ranks ~800K
+
+    # ── Division 1: Managers (3.16%) — Earnings ₹42,993 ──────────────
+    ("11",  1.86, 42_993),    # Chief Executives, Senior Officials
+    ("12",  0.65, 42_993),    # Administrative & Commercial Managers
+    ("13",  0.38, 42_993),    # Production & Specialised Managers
+    ("14",  0.27, 42_993),    # Hospitality, Retail & Other Managers
+
+    # ── Division 2: Professionals (5.28%) — Earnings ₹35,776 ────────
+    ("21",  0.44, 35_776),    # Science & Engineering Professionals
+    ("22",  0.46, 35_776),    # Health Professionals
+    ("23",  2.30, 35_776),    # Teaching Professionals
+    ("24",  0.67, 35_776),    # Business & Administration Professionals
+    ("25",  0.79, 35_776),    # ICT Professionals
+    ("26",  0.61, 35_776),    # Legal, Social & Cultural Professionals
+
+    # ── Division 3: Technicians (2.26%) — Earnings ₹24,199 ──────────
+    ("31",  0.69, 24_199),    # Science & Engineering Assoc. Professionals
+    ("32",  0.56, 24_199),    # Health Associate Professionals
+    ("33",  0.71, 24_199),    # Business & Admin Associate Professionals
+    ("34",  0.19, 24_199),    # Legal, Social & Cultural Associates
+    ("35",  0.11, 24_199),    # ICT Technicians
+
+    # ── Division 4: Clerks (2.11%) — Earnings ₹23,616 ───────────────
+    ("41",  1.07, 23_616),    # General & Keyboard Clerks
+    ("42",  0.28, 23_616),    # Customer Services Clerks
+    ("43",  0.34, 23_616),    # Numerical & Material Recording Clerks
+    ("44",  0.41, 23_616),    # Other Clerical Support Workers
+
+    # ── Division 5: Service & Sales (11.54%) — Earnings ₹14,628 ─────
+    ("51",  2.09, 14_628),    # Personal Service Workers
+    ("52",  8.30, 14_628),    # Sales Workers
+    ("53",  0.20, 14_628),    # Personal Care Workers
+    ("54",  0.95, 14_628),    # Protective Services Workers
+
+    # ── Division 6: Skilled Agriculture (37.97%) — Earnings ₹11,319 ─
+    ("61", 34.06, 11_319),    # Market-oriented Skilled Agri Workers
+    ("62",  0.55, 11_319),    # Market-oriented Skilled Forestry/Fishery
+    ("63",  3.37, 11_319),    # Subsistence Farmers, Fishers, Hunters
+
+    # ── Division 7: Craft & Trades (11.09%) — Earnings ₹15,350 ──────
+    ("71",  3.23, 15_350),    # Building & Related Trades Workers
+    ("72",  1.58, 15_350),    # Metal, Machinery & Related Trades
+    ("73",  1.22, 15_350),    # Handicraft & Printing Workers
+    ("74",  0.87, 15_350),    # Electrical & Electronic Trades Workers
+    ("75",  4.18, 15_350),    # Food/Wood/Garment & Other Craft Workers
+
+    # ── Division 8: Plant & Machine Operators (5.32%) — Earnings ₹15,906
+    ("81",  1.16, 15_906),    # Stationary Plant & Machine Operators
+    ("82",  0.08, 15_906),    # Assemblers
+    ("83",  4.08, 15_906),    # Drivers & Mobile Plant Operators
+
+    # ── Division 9: Elementary Occupations (21.28%) — Earnings ₹10,667
+    ("91",  1.61, 10_667),    # Cleaners & Helpers
+    ("92",  7.92, 10_667),    # Agricultural, Forestry & Fishery Labourers
+    ("93", 10.86, 10_667),    # Mining, Construction, Mfg Labourers
+    ("94",  0.10, 10_667),    # Food Preparation Assistants
+    ("95",  0.28, 10_667),    # Street & Related Sales/Service Workers
+    ("96",  0.51, 10_667),    # Refuse Workers & Other Elementary
+]
+
+# Convert percentage distribution to absolute employment counts
 EMPLOYMENT_DATA: list[tuple[str, int, int]] = [
-    # ── Major Group 0: Armed Forces (~1.7M) ──────────────────────────────
-    # 01 Commissioned Officers       ~0.3M
-    # 02 Non-commissioned Officers   ~0.5M
-    # 03 Other Ranks                 ~0.9M
-    ("01",   300_000, 55_000),
-    ("02",   500_000, 35_000),
-    ("03",   900_000, 25_000),
-
-    # ── Major Group 1: Managers (~19.7M) ─────────────────────────────────
-    # 11 Chief Executives etc.       ~3.0M
-    # 12 Administrative/Commercial   ~5.5M
-    # 13 Production/Specialised      ~5.2M
-    # 14 Hospitality/Retail Mgrs     ~6.0M
-    ("11", 3_000_000, 80_000),
-    ("12", 5_500_000, 60_000),
-    ("13", 5_200_000, 55_000),
-    ("14", 6_000_000, 45_000),
-
-    # ── Major Group 2: Professionals (~25.3M) ────────────────────────────
-    # 21 Science & Engineering       ~4.0M
-    # 22 Health Professionals        ~3.5M
-    # 23 Teaching Professionals      ~8.5M
-    # 24 Business & Admin Profs      ~4.0M
-    # 25 ICT Professionals           ~3.3M
-    # 26 Legal/Social/Cultural       ~2.0M
-    ("21", 4_000_000, 45_000),
-    ("22", 3_500_000, 50_000),
-    ("23", 8_500_000, 35_000),
-    ("24", 4_000_000, 42_000),
-    ("25", 3_300_000, 60_000),
-    ("26", 2_000_000, 30_000),
-
-    # ── Major Group 3: Technicians & Assoc. Professionals (~14.1M) ──────
-    # 31 Science/Engineering Assoc.  ~3.5M
-    # 32 Health Associates           ~2.5M
-    # 33 Business/Admin Associates   ~4.5M
-    # 34 Legal/Social/Cultural Assoc ~1.8M
-    # 35 ICT Technicians             ~1.8M
-    ("31", 3_500_000, 25_000),
-    ("32", 2_500_000, 22_000),
-    ("33", 4_500_000, 28_000),
-    ("34", 1_800_000, 20_000),
-    ("35", 1_800_000, 35_000),
-
-    # ── Major Group 4: Clerical Support Workers (~11.2M) ─────────────────
-    # 41 General/Keyboard Clerks     ~3.5M
-    # 42 Customer Services Clerks    ~3.0M
-    # 43 Numerical/Material Clerks   ~3.0M
-    # 44 Other Clerical              ~1.7M
-    ("41", 3_500_000, 18_000),
-    ("42", 3_000_000, 16_000),
-    ("43", 3_000_000, 22_000),
-    ("44", 1_700_000, 15_000),
-
-    # ── Major Group 5: Service and Sales Workers (~67.4M) ────────────────
-    # 51 Personal Service Workers    ~18.0M
-    # 52 Sales Workers               ~30.0M
-    # 53 Personal Care Workers       ~8.4M
-    # 54 Protective Services Workers ~11.0M
-    ("51", 18_000_000, 12_000),
-    ("52", 30_000_000, 14_000),
-    ("53",  8_400_000, 10_000),
-    ("54", 11_000_000, 18_000),
-
-    # ── Major Group 6: Skilled Agricultural, Forestry & Fishery (~129.3M)
-    # 61 Market-oriented Ag Workers  ~85.0M
-    # 62 Forestry/Fishery/Hunting    ~12.0M
-    # 63 Subsistence Farmers etc.    ~32.3M
-    ("61", 85_000_000,  9_000),
-    ("62", 12_000_000, 10_000),
-    ("63", 32_300_000,  6_000),
-
-    # ── Major Group 7: Craft and Related Trades Workers (~67.4M) ─────────
-    # 71 Building Trades (excl Elec) ~20.0M
-    # 72 Metal/Machinery Trades      ~15.0M
-    # 73 Handicraft/Printing         ~5.5M
-    # 74 Electrical/Electronic       ~10.0M
-    # 75 Food/Wood/Garment/Other     ~16.9M
-    ("71", 20_000_000, 14_000),
-    ("72", 15_000_000, 16_000),
-    ("73",  5_500_000, 12_000),
-    ("74", 10_000_000, 18_000),
-    ("75", 16_900_000, 13_000),
-
-    # ── Major Group 8: Plant & Machine Operators, Assemblers (~39.3M) ────
-    # 81 Stationary Plant/Machine Op ~12.0M
-    # 82 Assemblers                  ~5.3M
-    # 83 Drivers/Mobile Plant Op     ~22.0M
-    ("81", 12_000_000, 16_000),
-    ("82",  5_300_000, 14_000),
-    ("83", 22_000_000, 20_000),
-
-    # ── Major Group 9: Elementary Occupations (~185.5M) ──────────────────
-    # 91 Cleaners & Helpers          ~30.0M
-    # 92 Agricultural Labourers      ~75.0M
-    # 93 Mining/Construction/Mfg Lab ~42.0M
-    # 94 Food Preparation Assistants ~12.0M
-    # 95 Street Sales/Service        ~16.5M
-    # 96 Refuse/Other Elementary     ~10.0M
-    ("91", 30_000_000,  8_000),
-    ("92", 75_000_000,  6_500),
-    ("93", 42_000_000,  9_000),
-    ("94", 12_000_000,  7_500),
-    ("95", 16_500_000,  7_000),
-    ("96", 10_000_000,  6_000),
+    (code, round(pct / 100 * TOTAL_WORKFORCE), earnings)
+    for code, pct, earnings in _PLFS_DATA
 ]
 
 # CSV column headers
