@@ -301,43 +301,6 @@ code {
     </div>
 
     <!-- ============================================ -->
-    <h2>Pay (Monthly Earnings)</h2>
-    <p>
-      <strong>Source:</strong> PLFS 2023-24 Annual Report, <strong>Table 50</strong> — "Average wage/salary earnings (Rs.) during the preceding calendar month from regular wage/salaried employment among regular wage/salaried employees in CWS by occupation Divisions (1-digit code of NCO-2015)", Rural+Urban, Person column.
-    </p>
-
-    <table class="data-table">
-      <thead>
-        <tr><th>Division</th><th>Occupation</th><th>Avg Monthly Pay</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="mono">1</td><td>Managers</td><td>&#8377;42,993</td></tr>
-        <tr><td class="mono">2</td><td>Professionals</td><td>&#8377;35,776</td></tr>
-        <tr><td class="mono">3</td><td>Technicians</td><td>&#8377;24,199</td></tr>
-        <tr><td class="mono">4</td><td>Clerks</td><td>&#8377;23,616</td></tr>
-        <tr><td class="mono">5</td><td>Service &amp; Sales</td><td>&#8377;14,628</td></tr>
-        <tr><td class="mono">6</td><td>Skilled Agriculture</td><td>&#8377;11,319</td></tr>
-        <tr><td class="mono">7</td><td>Craft &amp; Trades</td><td>&#8377;15,350</td></tr>
-        <tr><td class="mono">8</td><td>Operators</td><td>&#8377;15,906</td></tr>
-        <tr><td class="mono">9</td><td>Elementary</td><td>&#8377;10,667</td></tr>
-      </tbody>
-    </table>
-
-    <div class="callout">
-      <p><strong>Important caveat:</strong> These figures cover <strong>only regular wage/salaried employees — about 21.7% of India's workforce.</strong> For context, PLFS Statement 12 reports self-employment gross earnings of ~&#8377;13,900 over the last 30 days in <strong>April-June 2024</strong>, and Statement 11 reports casual labour earnings of ~&#8377;433/day in <strong>April-June 2024</strong>. The pay figures on this chart do NOT represent what all workers in that occupation earn — only the salaried subset.</p>
-    </div>
-
-    <div class="qa">
-      <p class="qa-q">"Why is pay the same for all occupations within a Division?"</p>
-      <p class="qa-a">Because PLFS Table 50 only reports earnings at the 1-digit Division level (9 divisions), not the 2-digit sub-division level. This is a limitation of the published data, not a modelling choice. Armed Forces pay is estimated separately from MoD data since PLFS doesn't cover military.</p>
-    </div>
-
-    <div class="qa">
-      <p class="qa-q">"These pay figures seem low."</p>
-      <p class="qa-a">They are the official survey averages. India's median income is low by global standards. The methodology is CWS (Current Weekly Status) recall for earnings in the preceding calendar month. These are not take-home pay estimates — they are survey-reported averages.</p>
-    </div>
-
-    <!-- ============================================ -->
     <h2>Growth Outlook (10-Year Projected Trend)</h2>
 
     <div class="callout">
@@ -424,7 +387,7 @@ code {
     <h2>Stats panel (top bar)</h2>
     <ul>
       <li><strong>Total Jobs:</strong> Sum of all employment counts across 43 groups = 62.4 Cr</li>
-      <li><strong>Layer metric:</strong> Changes with the selected color layer — shows median group pay, average outlook, average AI exposure, etc. These are straightforward aggregations over the 43 records.</li>
+      <li><strong>Layer metric:</strong> Changes with the selected color layer — shows average outlook, average AI exposure, etc. These are straightforward aggregations over the 43 records.</li>
       <li><strong>Growing / Declining:</strong> Count of occupation groups with positive vs. negative growth outlook. Currently 33 growing, 9 declining.</li>
       <li><strong>Histogram:</strong> Distribution of employment across the current metric's range. Bar height represents total workers in that bucket (not count of occupations). Colored with the same scale as the treemap.</li>
     </ul>
@@ -441,7 +404,6 @@ code {
       </thead>
       <tbody>
         <tr><td>Employment</td><td><strong>~49.3 lakh (4.9M)</strong></td><td>Entire Code 25 ICT Professionals bucket; not software engineers alone</td></tr>
-        <tr><td>Pay shown</td><td>&#8377;35,776/mo</td><td>Division 2 average — see caveat below</td></tr>
         <tr><td>Growth Outlook</td><td><strong>+32%</strong></td><td>Highest of all 43 groups</td></tr>
         <tr><td>AI Exposure</td><td><strong>8/10</strong></td><td>High — coding is a core AI capability</td></tr>
         <tr><td>Demand Index</td><td><strong>95/100</strong></td><td>Highest demand signal on NCS</td></tr>
@@ -454,10 +416,6 @@ code {
       <li><strong>Code 21</strong> — Science &amp; Engineering Professionals (~27.5 lakh): includes engineers in non-software roles (mechanical, civil, chemical, etc.)</li>
       <li><strong>Code 35</strong> — ICT Technicians (~6.9 lakh): IT support, hardware maintenance, network installation — the operational side of tech</li>
     </ul>
-
-    <div class="callout">
-      <p><strong>The pay problem:</strong> The site shows &#8377;35,776/month for the Code 25 ICT Professionals bucket. This is <strong>not</strong> a software-engineer-specific salary estimate. PLFS Table 50 only reports earnings at the 1-digit Division level — so Code 25 (ICT Professionals) shares the same pay figure as Code 23 (Teaching Professionals), Code 22 (Health Professionals), and Code 26 (Legal/Social/Cultural Professionals). They are all Division 2: Professionals. This is a data granularity limitation in the official release, not an error in the chart.</p>
-    </div>
 
     <div class="qa">
       <p class="qa-q">"Only 49 lakh in the ICT Professionals bucket? That seems low."</p>
@@ -528,7 +486,6 @@ code {
       </thead>
       <tbody>
         <tr><td>Employment</td><td>Official survey data</td><td>PLFS 2023-24, Table 25</td></tr>
-        <tr><td>Pay</td><td>Official survey data</td><td>PLFS 2023-24, Table 50</td></tr>
         <tr><td>Skill Level</td><td>Official classification</td><td>NCO 2015 / ISCO-08</td></tr>
         <tr><td>Demand Index</td><td>Proxy (labeled)</td><td>NCS portal vacancies</td></tr>
         <tr><td>Growth Outlook</td><td>Estimated (labeled)</td><td>PLFS trends + structural adjustment</td></tr>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insights | Indian Job Market Explorer</title>
-<meta name="description" content="Correlation analysis between pay, skill level, AI exposure, demand, and growth across 43 Indian occupation groups.">
+<meta name="description" content="Correlation analysis between skill level, AI exposure, demand, and growth across 43 Indian occupation groups.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
@@ -281,7 +281,6 @@ p.desc {
   };
 
   var FIELDS = [
-    { key: "pay_median_monthly", label: "Pay (Monthly)", short: "Pay", fmt: function(v) { return "\u20B9" + Math.round(v).toLocaleString("en-IN"); } },
     { key: "skill_level", label: "Skill Level", short: "Skill", fmt: function(v) { return v + "/4"; } },
     { key: "demand_index", label: "Demand Index", short: "Demand", fmt: function(v) { return v + "/100"; } },
     { key: "growth_outlook", label: "Growth Outlook (%)", short: "Growth", fmt: function(v) { return (v > 0 ? "+" : "") + v + "%"; } },
@@ -367,12 +366,8 @@ p.desc {
 
     // ─── Key Insights ───
     var insights = [
-      { a: "skill_level", b: "pay_median_monthly", r: 0.866,
-        text: "Higher skill requirements strongly predict higher pay. The NCO skill level classification is the single best predictor of earnings in this dataset." },
       { a: "demand_index", b: "growth_outlook", r: 0.729,
         text: "Occupations with high NCS demand signals are strongly correlated with positive growth outlook. Current demand reflects structural trends, not just short-term hiring." },
-      { a: "ai_exposure", b: "pay_median_monthly", r: 0.514,
-        text: "Higher-paying occupations tend to have MORE AI exposure, not less. AI is a white-collar phenomenon in the Indian context. The lowest-paid (agriculture, elementary) are the least exposed." },
       { a: "ai_exposure", b: "growth_outlook", r: 0.390,
         text: "AI-exposed occupations are also the ones growing fastest. High exposure + high growth = augmentation, not replacement. The most \"at risk\" occupations by AI score are also the most in demand." }
     ];
@@ -440,13 +435,10 @@ p.desc {
 
     // ─── Scatter Plots ───
     var scatterPairs = [
-      { x: "skill_level", y: "pay_median_monthly", title: "Skill Level vs Pay", sub: "Does education pay off?" },
       { x: "demand_index", y: "growth_outlook", title: "Demand vs Growth Outlook", sub: "Are in-demand jobs growing?" },
-      { x: "ai_exposure", y: "pay_median_monthly", title: "AI Exposure vs Pay", sub: "Are high-paid jobs more AI-exposed?" },
       { x: "ai_exposure", y: "growth_outlook", title: "AI Exposure vs Growth", sub: "Are AI-exposed jobs growing or shrinking?" },
       { x: "ai_exposure", y: "skill_level", title: "AI Exposure vs Skill Level", sub: "Does AI target skilled workers?" },
       { x: "ai_exposure", y: "demand_index", title: "AI Exposure vs Demand", sub: "Are AI-exposed jobs in demand?" },
-      { x: "pay_median_monthly", y: "growth_outlook", title: "Pay vs Growth Outlook", sub: "Are well-paid jobs growing?" },
       { x: "skill_level", y: "growth_outlook", title: "Skill Level vs Growth", sub: "Are skilled occupations expanding?" }
     ];
 

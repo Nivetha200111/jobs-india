@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Indian Job Market Explorer</title>
-<meta name="description" content="Interactive treemap explorer of Indian occupations — employment, pay, skills, demand, and AI exposure across 43 NCO occupation groups.">
+<meta name="description" content="Interactive treemap explorer of Indian occupations — employment, skills, demand, and AI exposure across 43 NCO occupation groups.">
 <meta property="og:title" content="Indian Job Market Explorer">
-<meta property="og:description" content="Interactive treemap of Indian occupations based on PLFS 2023-24, NCO 2015, NCS, and NSDC data. Compare employment, pay, skill levels, demand, and AI exposure.">
+<meta property="og:description" content="Interactive treemap of Indian occupations based on PLFS 2023-24, NCO 2015, NCS, and NSDC data. Compare employment, skill levels, demand, and AI exposure.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Indian Job Market Explorer">
-<meta name="twitter:description" content="Interactive treemap of 43 Indian occupation groups — 625M workers visualized by employment, pay, and AI exposure based on PLFS 2023-24.">
+<meta name="twitter:description" content="Interactive treemap of 43 Indian occupation groups — 625M workers visualized by employment and AI exposure based on PLFS 2023-24.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
@@ -524,11 +524,8 @@ html, body {
   <!-- Controls -->
   <div class="controls">
     <span class="controls-label">Color by:</span>
-    <button class="layer-btn" data-layer="outlook">
+    <button class="layer-btn active" data-layer="outlook">
       <span class="icon">&#8599;</span> Outlook
-    </button>
-    <button class="layer-btn active" data-layer="pay">
-      <span class="icon">&#8377;</span> Pay
     </button>
     <button class="layer-btn" data-layer="skill">
       <span class="icon">&#9733;</span> Education
@@ -602,11 +599,6 @@ html, body {
     }
   }
 
-  function formatCurrency(n) {
-    if (n == null || isNaN(n)) return "N/A";
-    return "\u20B9" + formatIndianNumber(n);
-  }
-
   function skillLabel(level) {
     var labels = {1: "Elementary", 2: "Semi-skilled", 3: "Skilled", 4: "Highly skilled"};
     return labels[level] || "N/A";
@@ -623,11 +615,6 @@ html, body {
       if (d.data.growth_outlook == null) return "#ccc";
       // -15 to +32 range, 0 is neutral
       var t = Math.max(0, Math.min(1, (d.data.growth_outlook + 15) / 47));
-      return d3.interpolateRdYlGn(t);
-    },
-    pay: function(d) {
-      if (d.data.pay_median_monthly == null) return "#ccc";
-      var t = Math.max(0, Math.min(1, (d.data.pay_median_monthly - 5000) / (80000 - 5000)));
       return d3.interpolateRdYlGn(t);
     },
     skill: function(d) {
@@ -647,7 +634,7 @@ html, body {
   };
 
   // ─── State ───
-  var currentLayer = "pay";
+  var currentLayer = "outlook";
   var data = null;
   var root = null;
 
@@ -811,7 +798,6 @@ html, body {
     html += '<div class="tooltip-code">NCO ' + (d.occupation_code || "N/A") + ' &bull; ' + (d.occupation_group || "") + '</div>';
 
     html += '<div class="tooltip-row"><span class="tooltip-label">Employment</span><span class="tooltip-val">' + formatLakhCrore(d.employment_count) + ' (' + formatIndianNumber(d.employment_count) + ')</span></div>';
-    html += '<div class="tooltip-row"><span class="tooltip-label">Monthly Pay</span><span class="tooltip-val">' + formatCurrency(d.pay_median_monthly) + '</span></div>';
     var outlookColor = d.growth_outlook > 0 ? "#3fb950" : d.growth_outlook < 0 ? "#f85149" : "#9da5b0";
     html += '<div class="tooltip-row"><span class="tooltip-label">10yr Outlook</span><span class="tooltip-val" style="color:' + outlookColor + '">' + (d.growth_outlook > 0 ? '+' : '') + d.growth_outlook + '%</span></div>';
     html += '<div class="tooltip-row"><span class="tooltip-label">Skill Level</span><span class="tooltip-val">' + (d.skill_level != null ? d.skill_level + ' \u2013 ' + skillLabel(d.skill_level) : 'N/A') + '</span></div>';
@@ -860,7 +846,7 @@ html, body {
   var legendCollapsed = true;
 
   function renderLegend() {
-    var layerNames = {outlook: "Growth Outlook (10yr)", pay: "Pay (Monthly Average)", skill: "Skill Level (NCO)", demand: "Demand Index (NCS Proxy)", ai: "AI Exposure Score"};
+    var layerNames = {outlook: "Growth Outlook (10yr)", skill: "Skill Level (NCO)", demand: "Demand Index (NCS Proxy)", ai: "AI Exposure Score"};
     var html = "";
 
     html += '<button class="legend-toggle" id="legend-toggle">';
@@ -873,9 +859,6 @@ html, body {
     if (currentLayer === "outlook") {
       html += '<canvas id="legend-bar" width="220" height="14" class="legend-bar"></canvas>';
       html += '<div class="legend-labels"><span>-15% Decline</span><span>0%</span><span>+32% Growth</span></div>';
-    } else if (currentLayer === "pay") {
-      html += '<canvas id="legend-bar" width="220" height="14" class="legend-bar"></canvas>';
-      html += '<div class="legend-labels"><span>\u20B95,000</span><span>\u20B925,000</span><span>\u20B980,000</span></div>';
     } else if (currentLayer === "skill") {
       html += '<div class="legend-discrete">';
       html += '<div class="legend-discrete-item"><div class="legend-swatch" style="background:#bbdefb;"></div>1 \u2013 Elementary</div>';
@@ -893,7 +876,6 @@ html, body {
 
     html += '<div class="legend-source">';
     html += 'Employment: PLFS 2023-24<br>';
-    html += 'Pay: PLFS survey average<br>';
     html += 'Demand: NCS portal-derived proxy<br>';
     html += 'AI Exposure: LLM-scored estimate';
     html += '</div>';
@@ -918,8 +900,6 @@ html, body {
         var t = i / (w - 1);
         var color;
         if (currentLayer === "outlook") {
-          color = d3.interpolateRdYlGn(t);
-        } else if (currentLayer === "pay") {
           color = d3.interpolateRdYlGn(t);
         } else if (currentLayer === "demand") {
           color = d3.interpolateOrRd(t);
@@ -954,15 +934,6 @@ html, body {
       lowCount = data.filter(function(d) { return d.growth_outlook < 0; }).length;
       highLabel = "Growing"; lowLabel = "Declining";
       histField = "growth_outlook"; histMin = -15; histMax = 32; histBins = 12;
-      histInterpolate = d3.interpolateRdYlGn; histReverse = false;
-    } else if (currentLayer === "pay") {
-      var medPay = d3.median(data.filter(function(d) { return d.pay_median_monthly != null; }), function(d) { return d.pay_median_monthly; });
-      metricVal = formatCurrency(Math.round(medPay || 0));
-      metricLabel = "Median Group Pay";
-      highCount = data.filter(function(d) { return d.pay_median_monthly > medPay; }).length;
-      lowCount = data.filter(function(d) { return d.pay_median_monthly != null && d.pay_median_monthly <= medPay; }).length;
-      highLabel = "Above Median"; lowLabel = "At/Below";
-      histField = "pay_median_monthly"; histMin = 5000; histMax = 55000; histBins = 12;
       histInterpolate = d3.interpolateRdYlGn; histReverse = false;
     } else if (currentLayer === "skill") {
       var avgSkill = d3.mean(data.filter(function(d) { return d.skill_level != null; }), function(d) { return d.skill_level; });
