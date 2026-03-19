@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explained | Indian Job Market Explorer</title>
+<meta name="description" content="Every data point on the Indian Job Market Explorer explained — sources, caveats, and what each field actually means.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #0d1117;
+  color: #e6edf3;
+  line-height: 1.7;
+}
+
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3fb950;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 34px;
+  line-height: 1.2;
+  margin: 8px 0 12px;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 44px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #21262d;
+  color: #e6edf3;
+}
+
+h3 {
+  font-size: 17px;
+  margin: 28px 0 8px;
+  color: #e6edf3;
+}
+
+p, li {
+  font-size: 15.5px;
+  color: #9da5b0;
+  line-height: 1.75;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+strong {
+  color: #e6edf3;
+}
+
+a {
+  color: #3fb950;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.lede {
+  max-width: 720px;
+  font-size: 18px;
+  color: #9da5b0;
+  margin-bottom: 8px;
+}
+
+.top-links,
+.footer-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #3fb950;
+  color: #0d1117;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chip:hover {
+  background: #56d364;
+  text-decoration: none;
+}
+
+.chip.secondary {
+  background: #161b22;
+  color: #e6edf3;
+  border: 1px solid #30363d;
+}
+
+.chip.secondary:hover {
+  border-color: #3fb950;
+}
+
+.callout {
+  margin: 20px 0;
+  padding: 16px 18px;
+  border-left: 4px solid #d29922;
+  background: rgba(210, 153, 34, 0.08);
+  border-radius: 0 8px 8px 0;
+}
+
+.callout p {
+  margin: 0;
+  color: #e6edf3;
+  font-size: 14.5px;
+}
+
+.callout strong {
+  color: #d29922;
+}
+
+.callout.green {
+  border-left-color: #3fb950;
+  background: rgba(63, 185, 80, 0.06);
+}
+
+.callout.green strong {
+  color: #3fb950;
+}
+
+.qa {
+  margin: 16px 0;
+  padding: 14px 16px;
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+}
+
+.qa-q {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e6edf3;
+  margin: 0 0 6px;
+}
+
+.qa-a {
+  font-size: 14px;
+  color: #9da5b0;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 8px 12px;
+  background: #161b22;
+  color: #e6edf3;
+  font-weight: 600;
+  border-bottom: 2px solid #30363d;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.data-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid #21262d;
+  color: #9da5b0;
+}
+
+.data-table tr:hover td {
+  background: rgba(63, 185, 80, 0.04);
+}
+
+.mono {
+  font-family: "SF Mono", "Fira Code", Consolas, monospace;
+  font-size: 13px;
+}
+
+code {
+  font-family: "SF Mono", "Fira Code", Consolas, monospace;
+  font-size: 13px;
+  background: #161b22;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #e6edf3;
+}
+
+.footer-links {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #21262d;
+}
+
+.footer-links a {
+  color: #9da5b0;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+  <main class="page">
+    <div class="eyebrow">Explained</div>
+    <h1>Every data point on this site, explained</h1>
+    <p class="lede">
+      This page documents exactly where every number comes from, what it means, and what its limitations are. No hand-waving.
+    </p>
+
+    <div class="top-links">
+      <a class="chip" href="./">Open Explorer</a>
+      <a class="chip secondary" href="methodology.html">Methodology</a>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>What the graph is</h2>
+    <p>
+      A <strong>treemap</strong> — each rectangle represents one of <strong>43 occupation groups</strong> from India's NCO 2015 classification. The <strong>size</strong> of each rectangle is proportional to how many people work in that occupation. Bigger rectangle = more workers. You can switch between 5 color layers to see different dimensions of the data.
+    </p>
+
+    <!-- ============================================ -->
+    <h2>Total Jobs: 62.4 Cr (~625 million)</h2>
+    <p>This is the total Indian workforce. It comes from:</p>
+    <ul>
+      <li><strong>PLFS 2023-24 Annual Report</strong> (published by MoSPI, September 2024)</li>
+      <li>Statement 3: Worker Population Ratio (WPR) = <strong>43.7%</strong> (usual status ps+ss, all ages, persons)</li>
+      <li>Applied to India's projected mid-2023-24 population of <strong>~1.428 billion</strong></li>
+      <li>43.7% &times; 1.428B = <strong>~624 million</strong></li>
+    </ul>
+    <p>
+      The actual sum in the dataset is 625,335,360 because the sub-division percentages from Table 25 add to ~100.01% (rounding in the published tables) and ~1.4M armed forces are added separately.
+    </p>
+
+    <div class="qa">
+      <p class="qa-q">"Why 1.428 billion and not census figures?"</p>
+      <p class="qa-a">India's last census was 2011. The 1.428B figure here is a mid-period population estimate used to convert official PLFS shares into absolute worker counts. Any current all-India workforce total requires a population estimate rather than a fresh census count.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>Employment distribution (rectangle sizes)</h2>
+    <p>
+      <strong>Source:</strong> PLFS 2023-24 Annual Report, <strong>Table 25</strong> — "Percentage distribution of workers in usual status (ps+ss) by occupation group/sub-division/division as per NCO 2015", Rural+Urban, Person column.
+    </p>
+    <p>Each 2-digit NCO code has a percentage from this official table. The percentage is multiplied by the total workforce to get absolute counts.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Division</th><th>Name</th><th>Share</th><th>Workers</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">0</td><td>Armed Forces</td><td>0.22%</td><td>~1.4M</td></tr>
+        <tr><td class="mono">1</td><td>Managers</td><td>3.16%</td><td>~19.7M</td></tr>
+        <tr><td class="mono">2</td><td>Professionals</td><td>5.28%</td><td>~33.0M</td></tr>
+        <tr><td class="mono">3</td><td>Technicians</td><td>2.26%</td><td>~14.1M</td></tr>
+        <tr><td class="mono">4</td><td>Clerks</td><td>2.11%</td><td>~13.2M</td></tr>
+        <tr><td class="mono">5</td><td>Service &amp; Sales</td><td>11.54%</td><td>~72.0M</td></tr>
+        <tr><td class="mono">6</td><td>Skilled Agriculture</td><td>37.97%</td><td>~237.0M</td></tr>
+        <tr><td class="mono">7</td><td>Craft &amp; Trades</td><td>11.09%</td><td>~69.2M</td></tr>
+        <tr><td class="mono">8</td><td>Operators</td><td>5.32%</td><td>~33.2M</td></tr>
+        <tr><td class="mono">9</td><td>Elementary</td><td>21.28%</td><td>~132.8M</td></tr>
+      </tbody>
+    </table>
+
+    <div class="qa">
+      <p class="qa-q">"38% in agriculture seems too high."</p>
+      <p class="qa-a">It is the official PLFS figure. India's agricultural employment share actually <em>increased</em> in recent PLFS rounds (from 42.5% in 2017-18 to 46.1% in 2020-21 during COVID, settling to ~38% in 2023-24). This is a documented and widely-debated feature of Indian labour data, not an error.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"What about Armed Forces?"</p>
+      <p class="qa-a">PLFS is a civilian household survey — it does not cover military personnel. The ~1.4M figure comes from Ministry of Defence annual reports. The split across officers/NCOs/other ranks is approximate.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>Pay (Monthly Earnings)</h2>
+    <p>
+      <strong>Source:</strong> PLFS 2023-24 Annual Report, <strong>Table 50</strong> — "Average wage/salary earnings (Rs.) during the preceding calendar month from regular wage/salaried employment among regular wage/salaried employees in CWS by occupation Divisions (1-digit code of NCO-2015)", Rural+Urban, Person column.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Division</th><th>Occupation</th><th>Avg Monthly Pay</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>Managers</td><td>&#8377;42,993</td></tr>
+        <tr><td class="mono">2</td><td>Professionals</td><td>&#8377;35,776</td></tr>
+        <tr><td class="mono">3</td><td>Technicians</td><td>&#8377;24,199</td></tr>
+        <tr><td class="mono">4</td><td>Clerks</td><td>&#8377;23,616</td></tr>
+        <tr><td class="mono">5</td><td>Service &amp; Sales</td><td>&#8377;14,628</td></tr>
+        <tr><td class="mono">6</td><td>Skilled Agriculture</td><td>&#8377;11,319</td></tr>
+        <tr><td class="mono">7</td><td>Craft &amp; Trades</td><td>&#8377;15,350</td></tr>
+        <tr><td class="mono">8</td><td>Operators</td><td>&#8377;15,906</td></tr>
+        <tr><td class="mono">9</td><td>Elementary</td><td>&#8377;10,667</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>Important caveat:</strong> These figures cover <strong>only regular wage/salaried employees — about 21.7% of India's workforce.</strong> For context, PLFS Statement 12 reports self-employment gross earnings of ~&#8377;13,900 over the last 30 days in <strong>April-June 2024</strong>, and Statement 11 reports casual labour earnings of ~&#8377;433/day in <strong>April-June 2024</strong>. The pay figures on this chart do NOT represent what all workers in that occupation earn — only the salaried subset.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"Why is pay the same for all occupations within a Division?"</p>
+      <p class="qa-a">Because PLFS Table 50 only reports earnings at the 1-digit Division level (9 divisions), not the 2-digit sub-division level. This is a limitation of the published data, not a modelling choice. Armed Forces pay is estimated separately from MoD data since PLFS doesn't cover military.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"These pay figures seem low."</p>
+      <p class="qa-a">They are the official survey averages. India's median income is low by global standards. The methodology is CWS (Current Weekly Status) recall for earnings in the preceding calendar month. These are not take-home pay estimates — they are survey-reported averages.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>Growth Outlook (10-Year Projected Trend)</h2>
+
+    <div class="callout">
+      <p><strong>Key disclaimer:</strong> India does not publish a BLS-style occupation forecast. This field is a directional trend extrapolation, NOT an official forecast or prediction. It is clearly labeled as such throughout the site.</p>
+    </div>
+
+    <p>How it was constructed:</p>
+    <ol>
+      <li><strong>Observed industry-level growth</strong> from PLFS Statement 7 (industry distribution across 2021-22, 2022-23, 2023-24 — three years of published data)</li>
+      <li><strong>Mapped to NCO occupation divisions</strong> via primary industry linkage (e.g., construction industry growth &rarr; building trades occupations)</li>
+      <li><strong>Adjusted for structural factors:</strong> workforce formalization, urbanization trends, female LFPR surge (from 25.1% to 35.9% over recent PLFS rounds)</li>
+      <li><strong>AI exposure headwind</strong> applied as a dampener to routine-intensive roles</li>
+      <li><strong>Dampened for mean-reversion</strong> because post-COVID recovery growth was abnormally fast and cannot be extrapolated linearly</li>
+    </ol>
+
+    <p>Range: <strong>-15%</strong> (Subsistence Farmers, code 63) to <strong>+32%</strong> (ICT Professionals, code 25). Out of 43 groups, 33 are projected growing, 9 declining, and 1 flat.</p>
+
+    <div class="qa">
+      <p class="qa-q">"These are just made-up numbers."</p>
+      <p class="qa-a">They are informed directional estimates based on three years of observed trends, adjusted for known structural factors. They are not arbitrary. But they are also not official government projections — because none exist for India. The methodology page and code comments both state this explicitly.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"+32% for ICT seems aggressive."</p>
+      <p class="qa-a">The +32% figure on this site is a derived directional estimate for the Code 25 bucket, not an official forecast. It reflects the project's mapping of recent PLFS industry trends and structural adjustments into occupation-level outlooks. Readers should interpret it as a scenario-style signal, not as a published government projection.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"-15% for subsistence farmers — is agriculture collapsing?"</p>
+      <p class="qa-a">Subsistence farming (code 63) specifically is shrinking as workers move into market-oriented agriculture (code 61) or non-farm work. Total agricultural employment is declining as a share, which is a normal structural shift seen in every developing economy. The absolute number of agricultural workers may remain stable or decline slowly.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>Skill Level (Education)</h2>
+    <p>
+      <strong>Source:</strong> NCO 2015 classification — each occupation group has a skill level (1-4) defined by the ISCO-08 framework that NCO 2015 is based on.
+    </p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Level</th><th>Label</th><th>Typical Education</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>Elementary</td><td>Primary education</td></tr>
+        <tr><td class="mono">2</td><td>Semi-skilled</td><td>Secondary education</td></tr>
+        <tr><td class="mono">3</td><td>Skilled</td><td>Diploma / higher secondary + training</td></tr>
+        <tr><td class="mono">4</td><td>Highly skilled</td><td>University degree or higher</td></tr>
+      </tbody>
+    </table>
+    <p>This is <strong>definitional, not estimated</strong> — it is baked into the NCO/ISCO taxonomy. Not controversial.</p>
+
+    <!-- ============================================ -->
+    <h2>Demand Index</h2>
+    <p>
+      <strong>Source:</strong> National Career Service (NCS) portal — vacancy counts aggregated from India's government job portal, scaled 0-100 as a relative index.
+    </p>
+
+    <div class="callout">
+      <p><strong>Important caveat:</strong> NCS is a government portal — it skews toward public sector and formal economy jobs. Informal sector demand (which employs ~90% of Indian workers) is not captured. This field is labeled as a "directional proxy" everywhere on the site and must not be read as total labour demand.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"NCS doesn't represent real labour demand."</p>
+      <p class="qa-a">Correct, and we say so. It is a signal, not a census. It indicates which occupations have relatively more or fewer formal vacancies posted on a government portal. That's useful but limited.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>AI Exposure Score</h2>
+    <p>
+      <strong>Source:</strong> LLM-scored estimate — each of the 43 occupations was evaluated for how much its core tasks could be augmented or replaced by AI, calibrated specifically for the Indian labour market context.
+    </p>
+    <p>Scale: <strong>0-10</strong> (0 = minimal exposure, 10 = high exposure). Current range in the dataset: 1 to 9. Each occupation also has a written rationale explaining the score, visible in the tooltip.</p>
+
+    <div class="qa">
+      <p class="qa-q">"An AI scoring AI exposure is circular."</p>
+      <p class="qa-a">This is a common and published methodology in AI research (see Eloundou et al. 2023, "GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models"). The score is clearly labeled as an "LLM-scored estimate" — not a measured statistic. The rationale for each score is shown in the tooltip so you can judge for yourself.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"Why calibrated for India specifically?"</p>
+      <p class="qa-a">AI exposure differs by country. A data entry clerk in the U.S. faces high AI displacement because most workflows are digital. The same role in an Indian government office with paper-based workflows faces less. The scoring accounts for India's digitization levels, infrastructure gaps, and labour cost dynamics.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>Stats panel (top bar)</h2>
+    <ul>
+      <li><strong>Total Jobs:</strong> Sum of all employment counts across 43 groups = 62.4 Cr</li>
+      <li><strong>Layer metric:</strong> Changes with the selected color layer — shows median group pay, average outlook, average AI exposure, etc. These are straightforward aggregations over the 43 records.</li>
+      <li><strong>Growing / Declining:</strong> Count of occupation groups with positive vs. negative growth outlook. Currently 33 growing, 9 declining.</li>
+      <li><strong>Histogram:</strong> Distribution of employment across the current metric's range. Bar height represents total workers in that bucket (not count of occupations). Colored with the same scale as the treemap.</li>
+    </ul>
+
+    <!-- ============================================ -->
+    <h2>Where are software engineers?</h2>
+    <p>
+      In this visualization, software engineers, web developers, data engineers, DBAs, and sysadmins are represented primarily within <strong>Code 25: Information and Communications Technology Professionals</strong> in the NCO 2015 classification.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Field</th><th>Value</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Employment</td><td><strong>~49.3 lakh (4.9M)</strong></td><td>Entire Code 25 ICT Professionals bucket; not software engineers alone</td></tr>
+        <tr><td>Pay shown</td><td>&#8377;35,776/mo</td><td>Division 2 average — see caveat below</td></tr>
+        <tr><td>Growth Outlook</td><td><strong>+32%</strong></td><td>Highest of all 43 groups</td></tr>
+        <tr><td>AI Exposure</td><td><strong>8/10</strong></td><td>High — coding is a core AI capability</td></tr>
+        <tr><td>Demand Index</td><td><strong>95/100</strong></td><td>Highest demand signal on NCS</td></tr>
+        <tr><td>Skill Level</td><td>4 (Highly skilled)</td><td>University degree or higher</td></tr>
+      </tbody>
+    </table>
+
+    <p>Related groups on the visualization:</p>
+    <ul>
+      <li><strong>Code 21</strong> — Science &amp; Engineering Professionals (~27.5 lakh): includes engineers in non-software roles (mechanical, civil, chemical, etc.)</li>
+      <li><strong>Code 35</strong> — ICT Technicians (~6.9 lakh): IT support, hardware maintenance, network installation — the operational side of tech</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>The pay problem:</strong> The site shows &#8377;35,776/month for the Code 25 ICT Professionals bucket. This is <strong>not</strong> a software-engineer-specific salary estimate. PLFS Table 50 only reports earnings at the 1-digit Division level — so Code 25 (ICT Professionals) shares the same pay figure as Code 23 (Teaching Professionals), Code 22 (Health Professionals), and Code 26 (Legal/Social/Cultural Professionals). They are all Division 2: Professionals. This is a data granularity limitation in the official release, not an error in the chart.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"Only 49 lakh in the ICT Professionals bucket? That seems low."</p>
+      <p class="qa-a">This figure is for the full PLFS/NCO Code 25 bucket, not for software engineers alone and not for the entire tech industry. It comes from the PLFS occupation table and should be read as an occupation-classification estimate within this survey framework. Comparisons to industry headcounts from private-sector reports are useful context, but they are not strictly like-for-like.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"AI Exposure 8/10 — are software engineers going to be replaced?"</p>
+      <p class="qa-a">High exposure does not mean replacement. It means AI tools (copilots, code generation, automated testing) are highly capable at tasks software engineers do. In practice this has so far meant augmentation — engineers become more productive — rather than displacement. The score reflects task-level capability overlap, not a jobs-lost prediction. The growth outlook for this group is +32%, the highest on the chart, precisely because demand for software is accelerating even as AI changes how it's built.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>Why is this 2023-24 data? Is newer data available?</h2>
+    <p>
+      This site uses the <strong>PLFS 2023-24 Annual Report</strong> (July 2023 &ndash; June 2024), published by MoSPI in September 2024. It was the most recent annual report with full NCO 2-digit occupation breakdowns at the time of building.
+    </p>
+
+    <h3>What has changed since</h3>
+    <p>Starting January 2025, MoSPI fundamentally changed the PLFS:</p>
+    <ul>
+      <li>Annual reports now follow the <strong>calendar year</strong> (Jan-Dec), not the old July-June cycle</li>
+      <li>Sample size increased from 12,800 to <strong>22,692 first-stage units</strong></li>
+      <li>Quarterly estimates now cover <strong>both rural and urban</strong> India (previously quarterly was urban-only)</li>
+      <li><strong>Monthly bulletins</strong> are now released with national LFPR, WPR, and unemployment rate</li>
+    </ul>
+
+    <h3>Newer releases available</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>Release</th><th>Coverage</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Calendar Year 2024 Key Indicators</td><td>Jan &ndash; Dec 2024</td><td>Published</td></tr>
+        <tr><td>Quarterly Bulletins</td><td>Up to Oct &ndash; Dec 2025</td><td>Published</td></tr>
+        <tr><td>Monthly Bulletins</td><td>Up to Jan 2026</td><td>Published</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>Why we haven't updated yet:</strong> The quarterly and monthly bulletins publish aggregate indicators (LFPR, WPR, unemployment rate) but may not include the full <strong>NCO 2-digit occupation breakdown</strong> (Table 25 equivalent) that we need to size the treemap rectangles. The Calendar Year 2024 annual report is the most promising candidate for an update. We are evaluating whether it contains occupation-level distribution data at the granularity this visualization requires.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"Is the 2023-24 data outdated?"</p>
+      <p class="qa-a">Structural labour market composition does not change dramatically year-to-year. Agriculture was ~38% in 2023-24; it is unlikely to have shifted by more than 1-2 percentage points since. The relative sizes and rankings of occupation groups remain broadly valid. That said, we plan to update to CY2024 data once we confirm it has the occupation-level tables we need.</p>
+    </div>
+
+    <div class="qa">
+      <p class="qa-q">"The latest quarterly data shows different numbers."</p>
+      <p class="qa-a">Quarterly bulletins use Current Weekly Status (CWS), which typically shows lower employment and higher unemployment than the Usual Status (ps+ss) measure used in annual reports. These are different measurement approaches, not contradictions. This site uses Usual Status because it captures the structural picture better.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <h2>What this is and what it is not</h2>
+
+    <div class="callout green">
+      <p><strong>This is:</strong> A research-grade visualization that combines official Indian survey data (PLFS 2023-24) with clearly labeled proxy and estimated fields. Every source is cited. Every limitation is documented. The code is open source.</p>
+    </div>
+
+    <div class="callout">
+      <p><strong>This is not:</strong> An official government publication, a census, or a prediction of future employment levels. It does not claim to capture informal sector dynamics, state-level variation, or individual career outcomes.</p>
+    </div>
+
+    <h3>Summary of what is official vs. estimated</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Employment</td><td>Official survey data</td><td>PLFS 2023-24, Table 25</td></tr>
+        <tr><td>Pay</td><td>Official survey data</td><td>PLFS 2023-24, Table 50</td></tr>
+        <tr><td>Skill Level</td><td>Official classification</td><td>NCO 2015 / ISCO-08</td></tr>
+        <tr><td>Demand Index</td><td>Proxy (labeled)</td><td>NCS portal vacancies</td></tr>
+        <tr><td>Growth Outlook</td><td>Estimated (labeled)</td><td>PLFS trends + structural adjustment</td></tr>
+        <tr><td>AI Exposure</td><td>Estimated (labeled)</td><td>LLM-scored, India-calibrated</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ============================================ -->
+    <div class="footer-links">
+      <a href="./">Back to Explorer</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="https://github.com/Nivetha200111/jobs-india">Repository</a>
+    </div>
+  </main>
+</body>
+</html>
