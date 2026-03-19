@@ -658,7 +658,7 @@ html, body {
   var loadingEl = document.getElementById("loading");
 
   // ─── Load data ───
-  d3.json("data-india.json").then(function(raw) {
+  d3.json("data-india.json?v=2").then(function(raw) {
     loadingEl.style.display = "none";
     data = raw;
     buildTreemap();

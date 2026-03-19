@@ -348,7 +348,7 @@ p.desc {
   }
   function hideTT() { ttEl.classList.remove("visible"); }
 
-  d3.json("data-india.json").then(function(data) {
+  d3.json("data-india.json?v=2").then(function(data) {
 
     // Compute all correlations
     var corrMatrix = [];
