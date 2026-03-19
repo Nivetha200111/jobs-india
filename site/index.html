@@ -940,48 +940,63 @@ html, body {
     var totalEmp = d3.sum(data, function(d) { return d.employment_count || 0; });
     document.querySelector("#stat-total .stat-value").textContent = formatLakhCrore(totalEmp);
 
-    // Growing / declining counts (by outlook)
-    var growing = data.filter(function(d) { return d.growth_outlook > 0; }).length;
-    var declining = data.filter(function(d) { return d.growth_outlook < 0; }).length;
-    document.querySelector("#stat-growing .stat-value").textContent = growing;
-    document.querySelector("#stat-declining .stat-value").textContent = declining;
-
-    // Layer-specific metric
+    // Layer-specific metric + contextual high/low counts
     var metricVal = "—";
     var metricLabel = "—";
+    var highCount = 0, lowCount = 0, highLabel = "Growing", lowLabel = "Declining";
     var histField, histMin, histMax, histBins, histInterpolate, histReverse;
 
     if (currentLayer === "outlook") {
       var avgOutlook = d3.mean(data, function(d) { return d.growth_outlook; });
       metricVal = (avgOutlook > 0 ? "+" : "") + avgOutlook.toFixed(1) + "%";
       metricLabel = "Avg Outlook";
+      highCount = data.filter(function(d) { return d.growth_outlook > 0; }).length;
+      lowCount = data.filter(function(d) { return d.growth_outlook < 0; }).length;
+      highLabel = "Growing"; lowLabel = "Declining";
       histField = "growth_outlook"; histMin = -15; histMax = 32; histBins = 12;
       histInterpolate = d3.interpolateRdYlGn; histReverse = false;
     } else if (currentLayer === "pay") {
       var medPay = d3.median(data.filter(function(d) { return d.pay_median_monthly != null; }), function(d) { return d.pay_median_monthly; });
       metricVal = formatCurrency(Math.round(medPay || 0));
       metricLabel = "Median Group Pay";
+      highCount = data.filter(function(d) { return d.pay_median_monthly > medPay; }).length;
+      lowCount = data.filter(function(d) { return d.pay_median_monthly != null && d.pay_median_monthly <= medPay; }).length;
+      highLabel = "Above Median"; lowLabel = "At/Below";
       histField = "pay_median_monthly"; histMin = 5000; histMax = 55000; histBins = 12;
       histInterpolate = d3.interpolateRdYlGn; histReverse = false;
     } else if (currentLayer === "skill") {
       var avgSkill = d3.mean(data.filter(function(d) { return d.skill_level != null; }), function(d) { return d.skill_level; });
       metricVal = avgSkill ? avgSkill.toFixed(1) : "N/A";
       metricLabel = "Avg Skill Level";
+      highCount = data.filter(function(d) { return d.skill_level >= 3; }).length;
+      lowCount = data.filter(function(d) { return d.skill_level != null && d.skill_level < 3; }).length;
+      highLabel = "High Skill (3-4)"; lowLabel = "Low Skill (1-2)";
       histField = "skill_level"; histMin = 0.5; histMax = 4.5; histBins = 4;
       histInterpolate = null; histReverse = false;
     } else if (currentLayer === "demand") {
       var avgDemand = d3.mean(data.filter(function(d) { return d.demand_index != null; }), function(d) { return d.demand_index; });
       metricVal = avgDemand ? avgDemand.toFixed(0) + "/100" : "N/A";
       metricLabel = "Avg Demand";
+      highCount = data.filter(function(d) { return d.demand_index >= 50; }).length;
+      lowCount = data.filter(function(d) { return d.demand_index != null && d.demand_index < 50; }).length;
+      highLabel = "High Demand"; lowLabel = "Low Demand";
       histField = "demand_index"; histMin = 0; histMax = 100; histBins = 10;
       histInterpolate = d3.interpolateOrRd; histReverse = false;
     } else if (currentLayer === "ai") {
       var avgAI = d3.mean(data.filter(function(d) { return d.ai_exposure != null; }), function(d) { return d.ai_exposure; });
       metricVal = avgAI ? avgAI.toFixed(1) + "/10" : "N/A";
       metricLabel = "Avg AI Exposure";
+      highCount = data.filter(function(d) { return d.ai_exposure >= 5; }).length;
+      lowCount = data.filter(function(d) { return d.ai_exposure != null && d.ai_exposure < 5; }).length;
+      highLabel = "High Exposure"; lowLabel = "Low Exposure";
       histField = "ai_exposure"; histMin = 0; histMax = 10; histBins = 10;
       histInterpolate = d3.interpolateRdYlGn; histReverse = true;
     }
+
+    document.querySelector("#stat-growing .stat-value").textContent = highCount;
+    document.querySelector("#stat-growing .stat-label").textContent = highLabel;
+    document.querySelector("#stat-declining .stat-value").textContent = lowCount;
+    document.querySelector("#stat-declining .stat-label").textContent = lowLabel;
 
     document.querySelector("#stat-metric .stat-value").textContent = metricVal;
     document.querySelector("#stat-metric .stat-label").textContent = metricLabel;
